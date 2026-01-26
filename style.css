@@ -1,0 +1,370 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #1e3a8a;
+    --primary-light: #3b82f6;
+    --bg-color: #ffffff;
+    --text-color: #000000;
+    --box-bg: #f3f4f6;
+    --border-color: #e5e7eb;
+}
+
+body.dark-mode {
+    --primary-color: #1e3a8a;
+    --primary-light: #3b82f6;
+    --bg-color: #1f2937;
+    --text-color: #f3f4f6;
+    --box-bg: #374151;
+    --border-color: #4b5563;
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.header h1 {
+    font-size: 28px;
+    color: var(--primary-color);
+    flex: 1;
+    min-width: 250px;
+}
+
+.dark-mode-btn {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.dark-mode-btn:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.dark-mode-btn:active {
+    transform: translateY(0);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+/* 운수 섹션 */
+.fortune-section {
+    background-color: var(--box-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 25px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.fortune-section:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.2);
+}
+
+.fortune-section h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--primary-color);
+}
+
+.fortune-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.fortune-input input {
+    padding: 10px 15px;
+    border: 2px solid var(--primary-color);
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    transition: border-color 0.3s ease;
+}
+
+.fortune-input input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+}
+
+.fortune-btn {
+    padding: 10px 25px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.fortune-btn:hover {
+    background-color: var(--primary-light);
+    transform: translateY(-2px);
+}
+
+.fortune-btn:active {
+    transform: translateY(0);
+}
+
+.fortune-result {
+    text-align: center;
+    padding: 20px;
+    border-radius: 8px;
+    min-height: 50px;
+}
+
+.fortune-result.show {
+    background-color: rgba(59, 130, 246, 0.1);
+    border: 1px solid var(--primary-light);
+    animation: slideIn 0.5s ease-out;
+}
+
+.fortune-result h3 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.fortune-info {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.fortune-info p {
+    margin: 8px 0;
+    line-height: 1.6;
+}
+
+.luck-numbers {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 15px;
+}
+
+.luck-number {
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+}
+
+/* 로또 섹션 */
+.lottery-section {
+    text-align: center;
+}
+
+.lottery-section h2 {
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.generate-btn {
+    padding: 16px 40px;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 18px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    margin-bottom: 40px;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3);
+}
+
+.generate-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+}
+
+.generate-btn:active {
+    transform: translateY(-1px);
+}
+
+.lottery-boxes {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.lottery-box {
+    background-color: var(--box-bg);
+    border: 2px solid var(--primary-color);
+    border-radius: 12px;
+    padding: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lottery-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(30, 58, 138, 0.2);
+}
+
+.lottery-numbers {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 15px;
+}
+
+.number-ball {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-light));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(30, 58, 138, 0.3);
+    animation: popIn 0.5s ease-out;
+}
+
+.bonus-separator {
+    font-size: 20px;
+    color: var(--primary-color);
+    font-weight: bold;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.bonus-number {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 18px;
+    box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+    animation: popIn 0.5s ease-out;
+    border: 3px dashed var(--primary-color);
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0);
+        opacity: 0;
+    }
+    60% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes slideIn {
+    0% {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.set-number {
+    color: var(--text-color);
+    opacity: 0.6;
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+}
+
+/* 반응형 디자인 */
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 24px;
+    }
+
+    .header {
+        margin-bottom: 30px;
+    }
+
+    .generate-btn {
+        padding: 14px 30px;
+        font-size: 16px;
+    }
+
+    .number-ball,
+    .bonus-number {
+        width: 45px;
+        height: 45px;
+        font-size: 16px;
+    }
+
+    .luck-number {
+        width: 35px;
+        height: 35px;
+        font-size: 14px;
+    }
+
+    .lottery-numbers {
+        gap: 10px;
+    }
+
+    .fortune-input {
+        flex-direction: column;
+    }
+
+    .fortune-input input,
+    .fortune-btn {
+        width: 100%;
+    }
+}

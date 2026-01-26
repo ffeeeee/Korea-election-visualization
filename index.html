@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로또 번호 생성기 & 운세</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎰 로또 번호 생성기</h1>
+            <button class="dark-mode-btn" id="darkModeBtn">🌙 다크모드</button>
+        </div>
+
+        <div class="content">
+            <!-- 운수 보기 섹션 -->
+            <div class="fortune-section">
+                <h2>✨ 2026년 나의 운수</h2>
+                <div class="fortune-input">
+                    <input type="date" id="birthdayInput" placeholder="생년월일을 입력하세요">
+                    <button class="fortune-btn" id="fortuneBtn">운수 확인</button>
+                </div>
+                <div class="fortune-result" id="fortuneResult"></div>
+            </div>
+
+            <!-- 로또 번호 생성 섹션 -->
+            <div class="lottery-section">
+                <h2>🎲 로또 번호 생성</h2>
+                <button class="generate-btn" id="generateBtn">번호 생성</button>
+                
+                <div class="lottery-boxes" id="lotteryBoxes">
+                    <!-- 5개의 로또 번호 세트가 동적으로 생성됨 -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
