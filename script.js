@@ -53,38 +53,28 @@ function getRandomMenusAcrossAll() {
     return menus;
 }
 
-// Hugging Face API를 사용한 이미지 생성 함수
-async function generateFoodImage(foodName) {
+// Pixabay API를 사용한 무료 음식 이미지 검색
+async function getFoodImage(foodName) {
     try {
-        // 환경 변수에서 토큰을 가져오거나 사용자에게 요청
-        const token = localStorage.getItem('huggingFaceToken');
-        
-        if (!token) {
-            console.log('Hugging Face 토큰이 필요합니다.');
-            return null;
-        }
-        
         const response = await fetch(
-            "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2",
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`,
-                },
-                method: "POST",
-                body: JSON.stringify({ 
-                    inputs: `${foodName}, ghibli style, watercolor painting, cute, delicious, appetizing, studio ghibli art style`
-                }),
-            }
+            `https://pixabay.com/api/?key=43385204-1d3aa22d5a5a36c73d2950e6f&q=${encodeURIComponent(foodName)}&image_type=photo&per_page=3`
         );
         
         if (!response.ok) {
-            throw new Error('이미지 생성 실패');
+            throw new Error('이미지 검색 실패');
         }
         
-        const blob = await response.blob();
-        return URL.createObjectURL(blob);
+        const data = await response.json();
+        
+        if (data.hits && data.hits.length > 0) {
+            // 랜덤으로 하나의 이미지 선택
+            const randomIndex = Math.floor(Math.random() * Math.min(data.hits.length, 3));
+            return data.hits[randomIndex].webformatURL;
+        }
+        
+        return null;
     } catch (error) {
-        console.error('이미지 생성 오류:', error);
+        console.error('이미지 검색 오류:', error);
         return null;
     }
 }
@@ -108,20 +98,20 @@ recommendBtn.addEventListener('click', async function() {
         <h3>${message.emoji} ${message.text}</h3>
         <div class="fortune-info" style="text-align: center;">
             <p style="font-size: 18px; font-weight: bold; color: var(--primary-light); margin: 15px 0;">🍽️ ${menu}</p>
-            <div style="font-size: 14px; opacity: 0.8;">이미지 생성 중...</div>
+            <div style="font-size: 14px; opacity: 0.8;">이미지 검색 중...</div>
         </div>
     `;
     
     menuResult.classList.add('show');
     
-    // 이미지 생성
-    const imageUrl = await generateFoodImage(menu);
+    // 이미지 검색
+    const imageUrl = await getFoodImage(menu);
     
     if (imageUrl) {
         menuResult.innerHTML = `
             <h3>${message.emoji} ${message.text}</h3>
             <div class="fortune-info" style="text-align: center;">
-                <img src="${imageUrl}" alt="${menu}" style="max-width: 300px; width: 100%; height: auto; border-radius: 8px; margin: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2);">
+                <img src="${imageUrl}" alt="${menu}" style="max-width: 100%; height: auto; border-radius: 12px; margin: 15px 0; box-shadow: 0 4px 15px rgba(0,0,0,0.2); max-height: 400px;">
                 <p style="font-size: 24px; font-weight: bold; color: var(--primary-light); margin: 15px 0;">🍽️ ${menu}</p>
                 <p style="font-size: 14px; opacity: 0.8;">맛있는 한끼 되세요! 😋</p>
             </div>
