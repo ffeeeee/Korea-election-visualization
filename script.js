@@ -53,11 +53,11 @@ function getRandomMenusAcrossAll() {
     return menus;
 }
 
-// Pixabay API를 사용한 무료 음식 이미지 검색
+// Unsplash API를 사용한 무료 음식 이미지 검색
 async function getFoodImage(foodName) {
     try {
         const response = await fetch(
-            `https://pixabay.com/api/?key=43385204-1d3aa22d5a5a36c73d2950e6f&q=${encodeURIComponent(foodName)}&image_type=photo&per_page=3`
+            `https://api.unsplash.com/search/photos?query=${encodeURIComponent(foodName)}&per_page=5&client_id=vIsV-tX9B3dHV7ry_lLp3Vf5bK1NklLfFbfJxfbJmNE`
         );
         
         if (!response.ok) {
@@ -66,10 +66,10 @@ async function getFoodImage(foodName) {
         
         const data = await response.json();
         
-        if (data.hits && data.hits.length > 0) {
+        if (data.results && data.results.length > 0) {
             // 랜덤으로 하나의 이미지 선택
-            const randomIndex = Math.floor(Math.random() * Math.min(data.hits.length, 3));
-            return data.hits[randomIndex].webformatURL;
+            const randomIndex = Math.floor(Math.random() * Math.min(data.results.length, 5));
+            return data.results[randomIndex].urls.regular;
         }
         
         return null;
