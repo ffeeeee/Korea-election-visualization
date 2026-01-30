@@ -1,0 +1,3554 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_77a18f195f496027560a055114ea6f23 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet-minimap/3.6.1/Control.MiniMap.css"/>
+</head>
+<body>
+    
+    
+    <div style="
+        position:fixed; bottom:30px; left:10px; z-index:1000;
+        background:white; border:2px solid #888; border-radius:8px;
+        padding:12px 16px; font-family:'Malgun Gothic',sans-serif;
+        font-size:12px; box-shadow:0 2px 8px rgba(0,0,0,0.2);
+        max-height:60vh; overflow-y:auto;">
+        <div style="font-weight:700;font-size:14px;margin-bottom:8px;
+                     border-bottom:1px solid #ddd;padding-bottom:6px;">
+            &#9889; 범례
+        </div>
+        <div style="font-weight:600;margin:6px 0 4px;">송전선로</div>
+        
+        <div style="display:flex;align-items:center;margin:4px 0;">
+            <svg width="40" height="4" style="margin-right:8px;">
+                <line x1="0" y1="2" x2="40" y2="2" stroke="#DC2626"
+                      stroke-width="3" stroke-dasharray="15 8"/>
+            </svg>
+            <span>765kV (초고압)</span>
+        </div>
+        <div style="display:flex;align-items:center;margin:4px 0;">
+            <svg width="40" height="4" style="margin-right:8px;">
+                <line x1="0" y1="2" x2="40" y2="2" stroke="#EA580C"
+                      stroke-width="3" stroke-dasharray="10 6"/>
+            </svg>
+            <span>345kV (고압)</span>
+        </div>
+        <div style="display:flex;align-items:center;margin:4px 0;">
+            <svg width="40" height="4" style="margin-right:8px;">
+                <line x1="0" y1="2" x2="40" y2="2" stroke="#CA8A04"
+                      stroke-width="3" stroke-dasharray="6 4"/>
+            </svg>
+            <span>154kV (중압)</span>
+        </div>
+        <div style="display:flex;align-items:center;margin:4px 0;">
+            <svg width="40" height="4" style="margin-right:8px;">
+                <line x1="0" y1="2" x2="40" y2="2" stroke="#7C3AED"
+                      stroke-width="3" stroke-dasharray="12 4 4 4"/>
+            </svg>
+            <span>HVDC (직류송전)</span>
+        </div>
+        <div style="font-weight:600;margin:10px 0 4px;">시설물</div>
+        <div style="display:flex;align-items:center;margin:3px 0;">
+            <span style="color:red;font-size:14px;margin-right:8px;">&#9889;</span>
+            <span>발전소</span>
+        </div>
+        
+            <div style="display:flex;align-items:center;margin:3px 0;">
+                <span style="color:red;font-size:14px;margin-right:8px;">&#9679;</span>
+                <span>765kV 변전소</span>
+            </div>
+            <div style="display:flex;align-items:center;margin:3px 0;">
+                <span style="color:orange;font-size:14px;margin-right:8px;">&#9679;</span>
+                <span>345kV 변전소</span>
+            </div>
+            <div style="display:flex;align-items:center;margin:3px 0;">
+                <span style="color:steelblue;font-size:14px;margin-right:8px;">&#9632;</span>
+                <span>주요 소비지</span>
+            </div>
+        <div style="margin-top:10px;padding-top:6px;border-top:1px solid #ddd;
+                     color:#888;font-size:10px;">
+            * 교육/참고용 가상 데이터입니다
+        </div>
+    </div>
+    
+    <div style="
+        position:fixed; top:10px; left:50%; transform:translateX(-50%);
+        z-index:1000; background:rgba(30,58,95,0.9); color:white;
+        padding:10px 24px; border-radius:8px; font-family:'Malgun Gothic',sans-serif;
+        box-shadow:0 2px 8px rgba(0,0,0,0.3); text-align:center;">
+        <div style="font-size:18px;font-weight:700;">&#9889; 대한민국 전력 송전망 개념도</div>
+        <div style="font-size:11px;opacity:0.8;margin-top:4px;">
+            교육/참고 목적 | 실제 송전망 위치와 다를 수 있음
+        </div>
+    </div>
+    
+            <div class="folium-map" id="map_77a18f195f496027560a055114ea6f23" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_77a18f195f496027560a055114ea6f23 = L.map(
+                "map_77a18f195f496027560a055114ea6f23",
+                {
+                    center: [36.3, 127.8],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_c95ee6c0720445f63f93f53b470006d8 = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_c95ee6c0720445f63f93f53b470006d8.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_00348dcc1e94e615924701063b0e7b39 = L.polyline(
+                [[36.975, 126.598], [36.85, 126.57], [36.7, 126.58], [36.8, 126.75], [36.9, 126.95], [37.005, 127.183]],
+                {"bubblingMouseEvents": true, "color": "#DC2626", "dashArray": "15 8", "dashOffset": null, "fill": false, "fillColor": "#DC2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+        var popup_5790793ed3274052edc7c120728391ff = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8fbb961be33414de9403f0da6a7fa4a9 = $(`<div id="html_8fbb961be33414de9403f0da6a7fa4a9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">서해안 765kV (당진→신서산→신안성)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV (초고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">당진화력 → 신안성변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">176km</td></tr></table>     </div></div>`)[0];
+                popup_5790793ed3274052edc7c120728391ff.setContent(html_8fbb961be33414de9403f0da6a7fa4a9);
+            
+        
+
+        poly_line_00348dcc1e94e615924701063b0e7b39.bindPopup(popup_5790793ed3274052edc7c120728391ff)
+        ;
+
+        
+    
+    
+            poly_line_00348dcc1e94e615924701063b0e7b39.bindTooltip(
+                `<div>
+                     서해안 765kV (당진→신서산→신안성) (765kV (초고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f70bd88f708eac5f5557c7150e02405e = L.marker(
+                [36.85, 126.57],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            var div_icon_a287eb359d1ec582d4057a4ba3ecebdf = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_f70bd88f708eac5f5557c7150e02405e.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f70bd88f708eac5f5557c7150e02405e.setIcon(div_icon_a287eb359d1ec582d4057a4ba3ecebdf);
+            
+    
+            var marker_7622b88aac096d96946d090b7482731c = L.marker(
+                [36.7, 126.58],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_7622b88aac096d96946d090b7482731c.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7622b88aac096d96946d090b7482731c.setIcon(div_icon_a287eb359d1ec582d4057a4ba3ecebdf);
+            
+    
+            var marker_a4db9ccc311773d23c49b3a584e4f99b = L.marker(
+                [36.8, 126.75],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_a4db9ccc311773d23c49b3a584e4f99b.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a4db9ccc311773d23c49b3a584e4f99b.setIcon(div_icon_a287eb359d1ec582d4057a4ba3ecebdf);
+            
+    
+            var marker_df4760fdc461bc2c85cc3609f2f94721 = L.marker(
+                [36.9, 126.95],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_df4760fdc461bc2c85cc3609f2f94721.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_df4760fdc461bc2c85cc3609f2f94721.setIcon(div_icon_a287eb359d1ec582d4057a4ba3ecebdf);
+            
+    
+            var poly_line_b0e8d634af7e36dda95349946401c099 = L.polyline(
+                [[37.005, 127.183], [37.15, 127.25], [37.35, 127.35], [37.55, 127.42], [37.798, 127.505]],
+                {"bubblingMouseEvents": true, "color": "#DC2626", "dashArray": "15 8", "dashOffset": null, "fill": false, "fillColor": "#DC2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+        var popup_3569eebff46ac826c65fc368b0f5e01e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_218f4eddbd21ad57cb58b1e63247fc0e = $(`<div id="html_218f4eddbd21ad57cb58b1e63247fc0e" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">중부 765kV (신안성→신가평)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV (초고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">신안성변전소 → 신가평변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">78km</td></tr></table>     </div></div>`)[0];
+                popup_3569eebff46ac826c65fc368b0f5e01e.setContent(html_218f4eddbd21ad57cb58b1e63247fc0e);
+            
+        
+
+        poly_line_b0e8d634af7e36dda95349946401c099.bindPopup(popup_3569eebff46ac826c65fc368b0f5e01e)
+        ;
+
+        
+    
+    
+            poly_line_b0e8d634af7e36dda95349946401c099.bindTooltip(
+                `<div>
+                     중부 765kV (신안성→신가평) (765kV (초고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_31ecd1c996948a05c1697c362aea8127 = L.marker(
+                [37.15, 127.25],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            var div_icon_92d9edc3c704e261e6da6c3b1c62e6b4 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_31ecd1c996948a05c1697c362aea8127.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_31ecd1c996948a05c1697c362aea8127.setIcon(div_icon_92d9edc3c704e261e6da6c3b1c62e6b4);
+            
+    
+            var marker_4e6ade9f57a5c5cbbf55dc032fffda95 = L.marker(
+                [37.35, 127.35],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_4e6ade9f57a5c5cbbf55dc032fffda95.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4e6ade9f57a5c5cbbf55dc032fffda95.setIcon(div_icon_92d9edc3c704e261e6da6c3b1c62e6b4);
+            
+    
+            var marker_6af1f18ac43c762267f2dcee7e68226d = L.marker(
+                [37.55, 127.42],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_6af1f18ac43c762267f2dcee7e68226d.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6af1f18ac43c762267f2dcee7e68226d.setIcon(div_icon_92d9edc3c704e261e6da6c3b1c62e6b4);
+            
+    
+            var poly_line_61292d7245ad500b294a0a6ffc028c73 = L.polyline(
+                [[37.093, 129.383], [37.1, 129.2], [37.11, 129.05], [37.12, 128.9]],
+                {"bubblingMouseEvents": true, "color": "#DC2626", "dashArray": "15 8", "dashOffset": null, "fill": false, "fillColor": "#DC2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+        var popup_9c19858a1f9bdd9ce6cf655fc4dca179 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_87bcf2f01ae2022996414f7c5ae25dc7 = $(`<div id="html_87bcf2f01ae2022996414f7c5ae25dc7" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">동해안 765kV (한울→신태백)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV (초고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">한울원전 → 신태백변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">47km</td></tr></table>     </div></div>`)[0];
+                popup_9c19858a1f9bdd9ce6cf655fc4dca179.setContent(html_87bcf2f01ae2022996414f7c5ae25dc7);
+            
+        
+
+        poly_line_61292d7245ad500b294a0a6ffc028c73.bindPopup(popup_9c19858a1f9bdd9ce6cf655fc4dca179)
+        ;
+
+        
+    
+    
+            poly_line_61292d7245ad500b294a0a6ffc028c73.bindTooltip(
+                `<div>
+                     동해안 765kV (한울→신태백) (765kV (초고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4c9d68706c636d96731eda912843d74c = L.marker(
+                [37.1, 129.2],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            var div_icon_fd505ec838b99fbb11a4e8e8b29279fa = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_4c9d68706c636d96731eda912843d74c.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4c9d68706c636d96731eda912843d74c.setIcon(div_icon_fd505ec838b99fbb11a4e8e8b29279fa);
+            
+    
+            var marker_91b893e9b3c34477dc1f00b066d93d6a = L.marker(
+                [37.11, 129.05],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_91b893e9b3c34477dc1f00b066d93d6a.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_91b893e9b3c34477dc1f00b066d93d6a.setIcon(div_icon_fd505ec838b99fbb11a4e8e8b29279fa);
+            
+    
+            var poly_line_7f9bdc533cb1180728dcd43392203059 = L.polyline(
+                [[37.12, 128.9], [37.2, 128.6], [37.35, 128.3], [37.5, 128.0], [37.65, 127.75], [37.798, 127.505]],
+                {"bubblingMouseEvents": true, "color": "#DC2626", "dashArray": "15 8", "dashOffset": null, "fill": false, "fillColor": "#DC2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+        var popup_59db790c53bb28926e9573c2924cfa27 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_925909e9cf0fa0ed3f97776121b5a719 = $(`<div id="html_925909e9cf0fa0ed3f97776121b5a719" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">영동 765kV (신태백→신가평)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV (초고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">신태백변전소 → 신가평변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">155km</td></tr></table>     </div></div>`)[0];
+                popup_59db790c53bb28926e9573c2924cfa27.setContent(html_925909e9cf0fa0ed3f97776121b5a719);
+            
+        
+
+        poly_line_7f9bdc533cb1180728dcd43392203059.bindPopup(popup_59db790c53bb28926e9573c2924cfa27)
+        ;
+
+        
+    
+    
+            poly_line_7f9bdc533cb1180728dcd43392203059.bindTooltip(
+                `<div>
+                     영동 765kV (신태백→신가평) (765kV (초고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f851436dddd02a96d6b86201a40539c7 = L.marker(
+                [37.2, 128.6],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            var div_icon_0f991f7105167fff68d9cf8e4b80be6d = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_f851436dddd02a96d6b86201a40539c7.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f851436dddd02a96d6b86201a40539c7.setIcon(div_icon_0f991f7105167fff68d9cf8e4b80be6d);
+            
+    
+            var marker_379f6cc065db7de1ecc54e4579934220 = L.marker(
+                [37.35, 128.3],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_379f6cc065db7de1ecc54e4579934220.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_379f6cc065db7de1ecc54e4579934220.setIcon(div_icon_0f991f7105167fff68d9cf8e4b80be6d);
+            
+    
+            var marker_ca184686fa199b21c2860aec50165c03 = L.marker(
+                [37.5, 128.0],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_ca184686fa199b21c2860aec50165c03.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ca184686fa199b21c2860aec50165c03.setIcon(div_icon_0f991f7105167fff68d9cf8e4b80be6d);
+            
+    
+            var marker_d29b5c282f5752cbe89bc5e5071a2426 = L.marker(
+                [37.65, 127.75],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_d29b5c282f5752cbe89bc5e5071a2426.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d29b5c282f5752cbe89bc5e5071a2426.setIcon(div_icon_0f991f7105167fff68d9cf8e4b80be6d);
+            
+    
+            var poly_line_eeed890226d27c092f7ea8cd1a7ad2d9 = L.polyline(
+                [[35.316, 129.29], [35.4, 129.15], [35.5, 129.0], [35.62, 128.85]],
+                {"bubblingMouseEvents": true, "color": "#DC2626", "dashArray": "15 8", "dashOffset": null, "fill": false, "fillColor": "#DC2626", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 5}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+        var popup_5c8faea2abebf98891561b2c4f2dbc52 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_72fbaf33d5126a25e95f7596aae6ce29 = $(`<div id="html_72fbaf33d5126a25e95f7596aae6ce29" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">동남 765kV (고리→북경남)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV (초고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">고리원전 → 북경남변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">91km</td></tr></table>     </div></div>`)[0];
+                popup_5c8faea2abebf98891561b2c4f2dbc52.setContent(html_72fbaf33d5126a25e95f7596aae6ce29);
+            
+        
+
+        poly_line_eeed890226d27c092f7ea8cd1a7ad2d9.bindPopup(popup_5c8faea2abebf98891561b2c4f2dbc52)
+        ;
+
+        
+    
+    
+            poly_line_eeed890226d27c092f7ea8cd1a7ad2d9.bindTooltip(
+                `<div>
+                     동남 765kV (고리→북경남) (765kV (초고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_ca24670ef28d4e16a0e9116351c21a60 = L.marker(
+                [35.4, 129.15],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            var div_icon_0baf568ce91c2c29c0d1e5652b46a133 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#DC2626\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#DC2626\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_ca24670ef28d4e16a0e9116351c21a60.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ca24670ef28d4e16a0e9116351c21a60.setIcon(div_icon_0baf568ce91c2c29c0d1e5652b46a133);
+            
+    
+            var marker_ab7e568e7c493f8853cf7570b1062843 = L.marker(
+                [35.5, 129.0],
+                {
+}
+            ).addTo(feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7);
+        
+    
+            marker_ab7e568e7c493f8853cf7570b1062843.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ab7e568e7c493f8853cf7570b1062843.setIcon(div_icon_0baf568ce91c2c29c0d1e5652b46a133);
+            
+    
+            feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_516f356fd0cc3e4efcb1b66025dfded3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_32ebce2d3998419387547c961a1befc4 = L.polyline(
+                [[37.55, 126.87], [37.57, 126.95], [37.56, 127.0], [37.54, 127.08]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_3dba1b8f3175a9c50d64871c9ad8edad = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9a7f47666ba4b15055df8ff07c9714bd = $(`<div id="html_9a7f47666ba4b15055df8ff07c9714bd" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">수도권 345kV 환상망 (서서울→동서울)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">서서울변전소 → 동서울변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">35km</td></tr></table>     </div></div>`)[0];
+                popup_3dba1b8f3175a9c50d64871c9ad8edad.setContent(html_9a7f47666ba4b15055df8ff07c9714bd);
+            
+        
+
+        poly_line_32ebce2d3998419387547c961a1befc4.bindPopup(popup_3dba1b8f3175a9c50d64871c9ad8edad)
+        ;
+
+        
+    
+    
+            poly_line_32ebce2d3998419387547c961a1befc4.bindTooltip(
+                `<div>
+                     수도권 345kV 환상망 (서서울→동서울) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cfd2bec10968e2a817b69d1ac20f30d6 = L.marker(
+                [37.57, 126.95],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_7ca4c193ef41bdacc9a57c39ba21156a = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_cfd2bec10968e2a817b69d1ac20f30d6.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cfd2bec10968e2a817b69d1ac20f30d6.setIcon(div_icon_7ca4c193ef41bdacc9a57c39ba21156a);
+            
+    
+            var marker_feeb724e9caf78f225424528c8f9c3c8 = L.marker(
+                [37.56, 127.0],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_feeb724e9caf78f225424528c8f9c3c8.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_feeb724e9caf78f225424528c8f9c3c8.setIcon(div_icon_7ca4c193ef41bdacc9a57c39ba21156a);
+            
+    
+            var poly_line_96ad2b9205610381ac2bc5984859f98b = L.polyline(
+                [[37.43, 126.65], [37.46, 126.72], [37.5, 126.8], [37.55, 126.87]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_4d34e4fdde2565d95df94de510979e99 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_91887f5d63b864e92a2412c2745074b8 = $(`<div id="html_91887f5d63b864e92a2412c2745074b8" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">수도권 345kV (신인천→서서울)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">신인천변전소 → 서서울변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">30km</td></tr></table>     </div></div>`)[0];
+                popup_4d34e4fdde2565d95df94de510979e99.setContent(html_91887f5d63b864e92a2412c2745074b8);
+            
+        
+
+        poly_line_96ad2b9205610381ac2bc5984859f98b.bindPopup(popup_4d34e4fdde2565d95df94de510979e99)
+        ;
+
+        
+    
+    
+            poly_line_96ad2b9205610381ac2bc5984859f98b.bindTooltip(
+                `<div>
+                     수도권 345kV (신인천→서서울) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_cb2d69b6fb78d85c1779b28a2538f906 = L.marker(
+                [37.46, 126.72],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_97f3806e0fc53aff0f35a7493b13af45 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_cb2d69b6fb78d85c1779b28a2538f906.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_cb2d69b6fb78d85c1779b28a2538f906.setIcon(div_icon_97f3806e0fc53aff0f35a7493b13af45);
+            
+    
+            var marker_eb945156e943043a02e2bed2896a3059 = L.marker(
+                [37.5, 126.8],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_eb945156e943043a02e2bed2896a3059.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_eb945156e943043a02e2bed2896a3059.setIcon(div_icon_97f3806e0fc53aff0f35a7493b13af45);
+            
+    
+            var poly_line_6c469039b96f9717f2431eb79ebb8d70 = L.polyline(
+                [[37.005, 127.183], [36.85, 127.2], [36.7, 127.25], [36.55, 127.3], [36.35, 127.4]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_a861f8062d76da32b616ac4c63175405 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8f54473ce0db7d65031a275ae73579c1 = $(`<div id="html_8f54473ce0db7d65031a275ae73579c1" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">경부 345kV (신안성→대전)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">신안성변전소 → 대전변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">110km</td></tr></table>     </div></div>`)[0];
+                popup_a861f8062d76da32b616ac4c63175405.setContent(html_8f54473ce0db7d65031a275ae73579c1);
+            
+        
+
+        poly_line_6c469039b96f9717f2431eb79ebb8d70.bindPopup(popup_a861f8062d76da32b616ac4c63175405)
+        ;
+
+        
+    
+    
+            poly_line_6c469039b96f9717f2431eb79ebb8d70.bindTooltip(
+                `<div>
+                     경부 345kV (신안성→대전) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_2dacae12c07a6bbde6514ec2caefbf81 = L.marker(
+                [36.85, 127.2],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_89b03ce01166ce5a2d089f099e58e661 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_2dacae12c07a6bbde6514ec2caefbf81.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_2dacae12c07a6bbde6514ec2caefbf81.setIcon(div_icon_89b03ce01166ce5a2d089f099e58e661);
+            
+    
+            var marker_6d36631e31d5e3405bab4e1f0042ca70 = L.marker(
+                [36.7, 127.25],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_6d36631e31d5e3405bab4e1f0042ca70.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_6d36631e31d5e3405bab4e1f0042ca70.setIcon(div_icon_89b03ce01166ce5a2d089f099e58e661);
+            
+    
+            var marker_fb9913439294cec735c4368b0d00b5a4 = L.marker(
+                [36.55, 127.3],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_fb9913439294cec735c4368b0d00b5a4.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb9913439294cec735c4368b0d00b5a4.setIcon(div_icon_89b03ce01166ce5a2d089f099e58e661);
+            
+    
+            var poly_line_c76923cae1ea10b15a29ddf5ef271987 = L.polyline(
+                [[36.35, 127.4], [36.1, 127.25], [35.85, 127.05], [35.6, 126.95], [35.17, 126.91]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_8b8028d499993eb26d9810b85c44aa5d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_96f67ff01da72fc87526fc879e466361 = $(`<div id="html_96f67ff01da72fc87526fc879e466361" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">호남 345kV (대전→광주)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">대전변전소 → 광주변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">170km</td></tr></table>     </div></div>`)[0];
+                popup_8b8028d499993eb26d9810b85c44aa5d.setContent(html_96f67ff01da72fc87526fc879e466361);
+            
+        
+
+        poly_line_c76923cae1ea10b15a29ddf5ef271987.bindPopup(popup_8b8028d499993eb26d9810b85c44aa5d)
+        ;
+
+        
+    
+    
+            poly_line_c76923cae1ea10b15a29ddf5ef271987.bindTooltip(
+                `<div>
+                     호남 345kV (대전→광주) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_11c72be4da932e2e0532ca4c717a6e0e = L.marker(
+                [36.1, 127.25],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_a9f6e7f749a78fdd1e05f05fb167c601 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_11c72be4da932e2e0532ca4c717a6e0e.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_11c72be4da932e2e0532ca4c717a6e0e.setIcon(div_icon_a9f6e7f749a78fdd1e05f05fb167c601);
+            
+    
+            var marker_8f15fc57ac8181d079c1e16cb4803123 = L.marker(
+                [35.85, 127.05],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_8f15fc57ac8181d079c1e16cb4803123.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8f15fc57ac8181d079c1e16cb4803123.setIcon(div_icon_a9f6e7f749a78fdd1e05f05fb167c601);
+            
+    
+            var marker_ac6cd1b3d334b807f44ea5b3e9c06e27 = L.marker(
+                [35.6, 126.95],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_ac6cd1b3d334b807f44ea5b3e9c06e27.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ac6cd1b3d334b807f44ea5b3e9c06e27.setIcon(div_icon_a9f6e7f749a78fdd1e05f05fb167c601);
+            
+    
+            var poly_line_2a2574d0870bb3d55beee1a96ec0d6ff = L.polyline(
+                [[36.35, 127.4], [36.2, 127.6], [36.05, 127.85], [35.95, 128.15], [35.88, 128.61]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_933c9c6d0f13a5f199d7b9c212f1cd40 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_aae0485be1fdea5fce501c516181cd84 = $(`<div id="html_aae0485be1fdea5fce501c516181cd84" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">경부 345kV (대전→대구)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">대전변전소 → 대구변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">130km</td></tr></table>     </div></div>`)[0];
+                popup_933c9c6d0f13a5f199d7b9c212f1cd40.setContent(html_aae0485be1fdea5fce501c516181cd84);
+            
+        
+
+        poly_line_2a2574d0870bb3d55beee1a96ec0d6ff.bindPopup(popup_933c9c6d0f13a5f199d7b9c212f1cd40)
+        ;
+
+        
+    
+    
+            poly_line_2a2574d0870bb3d55beee1a96ec0d6ff.bindTooltip(
+                `<div>
+                     경부 345kV (대전→대구) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_de457cada995c5c3124d6972eb48b7df = L.marker(
+                [36.2, 127.6],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_59e5c035ee900e886eb41332fa718cfb = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_de457cada995c5c3124d6972eb48b7df.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_de457cada995c5c3124d6972eb48b7df.setIcon(div_icon_59e5c035ee900e886eb41332fa718cfb);
+            
+    
+            var marker_4239b0393cb706261dbcce42cbdaa887 = L.marker(
+                [36.05, 127.85],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_4239b0393cb706261dbcce42cbdaa887.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4239b0393cb706261dbcce42cbdaa887.setIcon(div_icon_59e5c035ee900e886eb41332fa718cfb);
+            
+    
+            var marker_48e1b856fe4076a8bb2a4995d5999279 = L.marker(
+                [35.95, 128.15],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_48e1b856fe4076a8bb2a4995d5999279.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_48e1b856fe4076a8bb2a4995d5999279.setIcon(div_icon_59e5c035ee900e886eb41332fa718cfb);
+            
+    
+            var poly_line_5917463fab403d65e8e1ddb194379922 = L.polyline(
+                [[35.88, 128.61], [35.75, 128.7], [35.6, 128.8], [35.4, 128.95], [35.18, 129.05]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_ce3f5e11f0d181e525e64b65f41744fe = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_86b80aafefc9a8806f05979dd84ada1f = $(`<div id="html_86b80aafefc9a8806f05979dd84ada1f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">경남 345kV (대구→부산)</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">대구변전소 → 부산변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">90km</td></tr></table>     </div></div>`)[0];
+                popup_ce3f5e11f0d181e525e64b65f41744fe.setContent(html_86b80aafefc9a8806f05979dd84ada1f);
+            
+        
+
+        poly_line_5917463fab403d65e8e1ddb194379922.bindPopup(popup_ce3f5e11f0d181e525e64b65f41744fe)
+        ;
+
+        
+    
+    
+            poly_line_5917463fab403d65e8e1ddb194379922.bindTooltip(
+                `<div>
+                     경남 345kV (대구→부산) (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_1e2296613ce141c2a4f738088cb1a7d1 = L.marker(
+                [35.75, 128.7],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_2cde2943f806d22121ff7976efa177a9 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_1e2296613ce141c2a4f738088cb1a7d1.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1e2296613ce141c2a4f738088cb1a7d1.setIcon(div_icon_2cde2943f806d22121ff7976efa177a9);
+            
+    
+            var marker_fb5a3587560dbf2842eea2c302eea3ec = L.marker(
+                [35.6, 128.8],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_fb5a3587560dbf2842eea2c302eea3ec.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fb5a3587560dbf2842eea2c302eea3ec.setIcon(div_icon_2cde2943f806d22121ff7976efa177a9);
+            
+    
+            var marker_3039f3ee20b4dc8a7db5299cd81bc660 = L.marker(
+                [35.4, 128.95],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_3039f3ee20b4dc8a7db5299cd81bc660.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3039f3ee20b4dc8a7db5299cd81bc660.setIcon(div_icon_2cde2943f806d22121ff7976efa177a9);
+            
+    
+            var poly_line_a2147ed998f65ef2f18dd44437c78c28 = L.polyline(
+                [[35.413, 126.416], [35.35, 126.55], [35.28, 126.68], [35.2, 126.8], [35.17, 126.91]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_0ac378b1e496328d1ee21b6e3189aac5 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3a25bbc016f1386da4c3defb05745e1f = $(`<div id="html_3a25bbc016f1386da4c3defb05745e1f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">영광-광주 345kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">한빛원전 → 광주변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">85km</td></tr></table>     </div></div>`)[0];
+                popup_0ac378b1e496328d1ee21b6e3189aac5.setContent(html_3a25bbc016f1386da4c3defb05745e1f);
+            
+        
+
+        poly_line_a2147ed998f65ef2f18dd44437c78c28.bindPopup(popup_0ac378b1e496328d1ee21b6e3189aac5)
+        ;
+
+        
+    
+    
+            poly_line_a2147ed998f65ef2f18dd44437c78c28.bindTooltip(
+                `<div>
+                     영광-광주 345kV (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_f5d0363f29ecf874f7f76654c3adca46 = L.marker(
+                [35.35, 126.55],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_8ffb98350293a1579c9cb9c77191662a = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_f5d0363f29ecf874f7f76654c3adca46.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f5d0363f29ecf874f7f76654c3adca46.setIcon(div_icon_8ffb98350293a1579c9cb9c77191662a);
+            
+    
+            var marker_1be31d756758655de8d711c74544bd13 = L.marker(
+                [35.28, 126.68],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_1be31d756758655de8d711c74544bd13.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1be31d756758655de8d711c74544bd13.setIcon(div_icon_8ffb98350293a1579c9cb9c77191662a);
+            
+    
+            var marker_68c9531117155a09e86219800ba5faeb = L.marker(
+                [35.2, 126.8],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_68c9531117155a09e86219800ba5faeb.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_68c9531117155a09e86219800ba5faeb.setIcon(div_icon_8ffb98350293a1579c9cb9c77191662a);
+            
+    
+            var poly_line_bb7fcb996215c6d95f4a1e2eea0c61c7 = L.polyline(
+                [[36.38, 126.49], [36.38, 126.65], [36.37, 126.85], [36.36, 127.1], [36.35, 127.4]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_f5b4415123c8f8a9c4eb7e38c0ca727e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_81c670784d88c37dfc99ae164471d8ec = $(`<div id="html_81c670784d88c37dfc99ae164471d8ec" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">보령-대전 345kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">보령화력 → 대전변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">95km</td></tr></table>     </div></div>`)[0];
+                popup_f5b4415123c8f8a9c4eb7e38c0ca727e.setContent(html_81c670784d88c37dfc99ae164471d8ec);
+            
+        
+
+        poly_line_bb7fcb996215c6d95f4a1e2eea0c61c7.bindPopup(popup_f5b4415123c8f8a9c4eb7e38c0ca727e)
+        ;
+
+        
+    
+    
+            poly_line_bb7fcb996215c6d95f4a1e2eea0c61c7.bindTooltip(
+                `<div>
+                     보령-대전 345kV (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_24ec48f3229f664a4946a8f8de3ffbd0 = L.marker(
+                [36.38, 126.65],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_696273ac18807daee804dc958eed63da = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_24ec48f3229f664a4946a8f8de3ffbd0.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_24ec48f3229f664a4946a8f8de3ffbd0.setIcon(div_icon_696273ac18807daee804dc958eed63da);
+            
+    
+            var marker_f31ca93dafd102bb58008493eac12821 = L.marker(
+                [36.37, 126.85],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_f31ca93dafd102bb58008493eac12821.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f31ca93dafd102bb58008493eac12821.setIcon(div_icon_696273ac18807daee804dc958eed63da);
+            
+    
+            var marker_a24a7389936e1125d36327008bea1e8e = L.marker(
+                [36.36, 127.1],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_a24a7389936e1125d36327008bea1e8e.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a24a7389936e1125d36327008bea1e8e.setIcon(div_icon_696273ac18807daee804dc958eed63da);
+            
+    
+            var poly_line_65e831aed86ae122bdbaf38e6751381d = L.polyline(
+                [[37.005, 127.183], [37.1, 127.15], [37.2, 127.1]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_7763b47144a29766f65d445edf2a116d = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_29bb7b1d03c8f2051b2b28439f750a93 = $(`<div id="html_29bb7b1d03c8f2051b2b28439f750a93" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신안성-신용인 345kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">신안성변전소 → 신용인변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">20km</td></tr></table>     </div></div>`)[0];
+                popup_7763b47144a29766f65d445edf2a116d.setContent(html_29bb7b1d03c8f2051b2b28439f750a93);
+            
+        
+
+        poly_line_65e831aed86ae122bdbaf38e6751381d.bindPopup(popup_7763b47144a29766f65d445edf2a116d)
+        ;
+
+        
+    
+    
+            poly_line_65e831aed86ae122bdbaf38e6751381d.bindTooltip(
+                `<div>
+                     신안성-신용인 345kV (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4ab0d1e9013982be146f8c35f29c8a26 = L.marker(
+                [37.1, 127.15],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_f60357f25a4cd385a2602704bdee6a0b = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_4ab0d1e9013982be146f8c35f29c8a26.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4ab0d1e9013982be146f8c35f29c8a26.setIcon(div_icon_f60357f25a4cd385a2602704bdee6a0b);
+            
+    
+            var poly_line_e734745d44bd12c20d8817823f32fa0f = L.polyline(
+                [[37.24, 126.43], [37.3, 126.5], [37.37, 126.58], [37.43, 126.65]],
+                {"bubblingMouseEvents": true, "color": "#EA580C", "dashArray": "10 6", "dashOffset": null, "fill": false, "fillColor": "#EA580C", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.85, "smoothFactor": 1.0, "stroke": true, "weight": 3.5}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+        var popup_1c085d209fa74d5ce4220af397644458 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_f38a00be66dd9b197f28223690ecc952 = $(`<div id="html_f38a00be66dd9b197f28223690ecc952" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">영흥-신인천 345kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV (고압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">영흥화력 → 신인천변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">40km</td></tr></table>     </div></div>`)[0];
+                popup_1c085d209fa74d5ce4220af397644458.setContent(html_f38a00be66dd9b197f28223690ecc952);
+            
+        
+
+        poly_line_e734745d44bd12c20d8817823f32fa0f.bindPopup(popup_1c085d209fa74d5ce4220af397644458)
+        ;
+
+        
+    
+    
+            poly_line_e734745d44bd12c20d8817823f32fa0f.bindTooltip(
+                `<div>
+                     영흥-신인천 345kV (345kV (고압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_e83315814b7be22aa55922cb2df97720 = L.marker(
+                [37.3, 126.5],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            var div_icon_64718425cb24bc5df3687baf9232dd79 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#EA580C\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#EA580C\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_e83315814b7be22aa55922cb2df97720.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e83315814b7be22aa55922cb2df97720.setIcon(div_icon_64718425cb24bc5df3687baf9232dd79);
+            
+    
+            var marker_b8524362c593274532af729f2d0ad7ff = L.marker(
+                [37.37, 126.58],
+                {
+}
+            ).addTo(feature_group_516f356fd0cc3e4efcb1b66025dfded3);
+        
+    
+            marker_b8524362c593274532af729f2d0ad7ff.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b8524362c593274532af729f2d0ad7ff.setIcon(div_icon_64718425cb24bc5df3687baf9232dd79);
+            
+    
+            feature_group_516f356fd0cc3e4efcb1b66025dfded3.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_4ec02b003d3ca788872311ca201f1f68 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_4f227899a486c1420bbc422aecb6a7cb = L.polyline(
+                [[34.96, 127.88], [34.94, 127.96], [34.913, 128.068]],
+                {"bubblingMouseEvents": true, "color": "#CA8A04", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#CA8A04", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.75, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+        var popup_b881e9a881e18527f733d8954a3cbec9 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_408c4b6831ee052b89ad33f17aa77120 = $(`<div id="html_408c4b6831ee052b89ad33f17aa77120" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">하동-삼천포 154kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">154kV (중압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">하동화력 → 삼천포화력</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">25km</td></tr></table>     </div></div>`)[0];
+                popup_b881e9a881e18527f733d8954a3cbec9.setContent(html_408c4b6831ee052b89ad33f17aa77120);
+            
+        
+
+        poly_line_4f227899a486c1420bbc422aecb6a7cb.bindPopup(popup_b881e9a881e18527f733d8954a3cbec9)
+        ;
+
+        
+    
+    
+            poly_line_4f227899a486c1420bbc422aecb6a7cb.bindTooltip(
+                `<div>
+                     하동-삼천포 154kV (154kV (중압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_8cbd51b8ad1f2179cc90996b990294f0 = L.marker(
+                [34.94, 127.96],
+                {
+}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+            var div_icon_c89919399a4a8f3a2bd506f6452782c6 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#CA8A04\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_8cbd51b8ad1f2179cc90996b990294f0.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_8cbd51b8ad1f2179cc90996b990294f0.setIcon(div_icon_c89919399a4a8f3a2bd506f6452782c6);
+            
+    
+            var poly_line_84086823f02ee96525cc441877ebf8ee = L.polyline(
+                [[35.714, 129.476], [35.6, 129.4], [35.45, 129.3], [35.3, 129.15], [35.18, 129.05]],
+                {"bubblingMouseEvents": true, "color": "#CA8A04", "dashArray": "6 4", "dashOffset": null, "fill": false, "fillColor": "#CA8A04", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.75, "smoothFactor": 1.0, "stroke": true, "weight": 2.5}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+        var popup_d47b2388cad7b5956b3502fd3cea9d6e = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_841c253564a0e3e91a8272f3e9e34139 = $(`<div id="html_841c253564a0e3e91a8272f3e9e34139" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">월성-부산 154kV</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">154kV (중압)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">월성원전 → 부산변전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">60km</td></tr></table>     </div></div>`)[0];
+                popup_d47b2388cad7b5956b3502fd3cea9d6e.setContent(html_841c253564a0e3e91a8272f3e9e34139);
+            
+        
+
+        poly_line_84086823f02ee96525cc441877ebf8ee.bindPopup(popup_d47b2388cad7b5956b3502fd3cea9d6e)
+        ;
+
+        
+    
+    
+            poly_line_84086823f02ee96525cc441877ebf8ee.bindTooltip(
+                `<div>
+                     월성-부산 154kV (154kV (중압))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_fa0f887da69acf42687328e764d27491 = L.marker(
+                [35.6, 129.4],
+                {
+}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+            var div_icon_03a1f6a198a240f182bec09b7b69c434 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#CA8A04\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#CA8A04\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_fa0f887da69acf42687328e764d27491.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fa0f887da69acf42687328e764d27491.setIcon(div_icon_03a1f6a198a240f182bec09b7b69c434);
+            
+    
+            var marker_5066492159424b87fe1fb31e5d8c4fb7 = L.marker(
+                [35.45, 129.3],
+                {
+}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+            marker_5066492159424b87fe1fb31e5d8c4fb7.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5066492159424b87fe1fb31e5d8c4fb7.setIcon(div_icon_03a1f6a198a240f182bec09b7b69c434);
+            
+    
+            var marker_82d46cc8850a90e521965ecc7c24f6e7 = L.marker(
+                [35.3, 129.15],
+                {
+}
+            ).addTo(feature_group_4ec02b003d3ca788872311ca201f1f68);
+        
+    
+            marker_82d46cc8850a90e521965ecc7c24f6e7.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_82d46cc8850a90e521965ecc7c24f6e7.setIcon(div_icon_03a1f6a198a240f182bec09b7b69c434);
+            
+    
+            feature_group_4ec02b003d3ca788872311ca201f1f68.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_5758d69e188e36c8e7baa9f6063777e1 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var poly_line_d75fe1dbdc1cb581c75bfb47736a8809 = L.polyline(
+                [[34.57, 126.57], [34.4, 126.52], [34.1, 126.45], [33.8, 126.4], [33.51, 126.53]],
+                {"bubblingMouseEvents": true, "color": "#7C3AED", "dashArray": "12 4 4 4", "dashOffset": null, "fill": false, "fillColor": "#7C3AED", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+        var popup_135d6f154cf59c9dad46e024267bc657 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_271a493dfc0ff4335464e643d03f4421 = $(`<div id="html_271a493dfc0ff4335464e643d03f4421" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">해남-제주 HVDC</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">HVDC (직류송전)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">해남 → 제주</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">101km</td></tr></table>     </div></div>`)[0];
+                popup_135d6f154cf59c9dad46e024267bc657.setContent(html_271a493dfc0ff4335464e643d03f4421);
+            
+        
+
+        poly_line_d75fe1dbdc1cb581c75bfb47736a8809.bindPopup(popup_135d6f154cf59c9dad46e024267bc657)
+        ;
+
+        
+    
+    
+            poly_line_d75fe1dbdc1cb581c75bfb47736a8809.bindTooltip(
+                `<div>
+                     해남-제주 HVDC (HVDC (직류송전))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_b82cef46a7ab105e22495a89e3ff7b48 = L.marker(
+                [34.4, 126.52],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            var div_icon_c0d28e7f49904f082998bb9b307aedf5 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#7C3AED\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_b82cef46a7ab105e22495a89e3ff7b48.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_b82cef46a7ab105e22495a89e3ff7b48.setIcon(div_icon_c0d28e7f49904f082998bb9b307aedf5);
+            
+    
+            var marker_aaa9de8e67e7b188073adcb2f599c5d2 = L.marker(
+                [34.1, 126.45],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            marker_aaa9de8e67e7b188073adcb2f599c5d2.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aaa9de8e67e7b188073adcb2f599c5d2.setIcon(div_icon_c0d28e7f49904f082998bb9b307aedf5);
+            
+    
+            var marker_f92e9014c736c5962b966fa04db45f6a = L.marker(
+                [33.8, 126.4],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            marker_f92e9014c736c5962b966fa04db45f6a.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_f92e9014c736c5962b966fa04db45f6a.setIcon(div_icon_c0d28e7f49904f082998bb9b307aedf5);
+            
+    
+            var poly_line_ef946c73312460b1fd3da3f35abaafb4 = L.polyline(
+                [[34.49, 126.26], [34.3, 126.28], [34.05, 126.3], [33.75, 126.31], [33.51, 126.53]],
+                {"bubblingMouseEvents": true, "color": "#7C3AED", "dashArray": "12 4 4 4", "dashOffset": null, "fill": false, "fillColor": "#7C3AED", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.9, "smoothFactor": 1.0, "stroke": true, "weight": 4}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+        var popup_ba0e46ae610a1caed8c00496ca3c12e7 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_2bb786317ccba0b049b50707d1ab57e0 = $(`<div id="html_2bb786317ccba0b049b50707d1ab57e0" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">진도-제주 HVDC #2</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">HVDC (직류송전)</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">구간</td><td style="padding:3px 0;">진도 → 제주</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">연장</td><td style="padding:3px 0;">122km</td></tr></table>     </div></div>`)[0];
+                popup_ba0e46ae610a1caed8c00496ca3c12e7.setContent(html_2bb786317ccba0b049b50707d1ab57e0);
+            
+        
+
+        poly_line_ef946c73312460b1fd3da3f35abaafb4.bindPopup(popup_ba0e46ae610a1caed8c00496ca3c12e7)
+        ;
+
+        
+    
+    
+            poly_line_ef946c73312460b1fd3da3f35abaafb4.bindTooltip(
+                `<div>
+                     진도-제주 HVDC #2 (HVDC (직류송전))
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var marker_4818589ac0ba9b91bccea22cdedde810 = L.marker(
+                [34.3, 126.28],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            var div_icon_50675c8609f773ca3e4d5e4424da57b8 = L.divIcon({
+  "html": "\u003cdiv style=\"opacity:0.8;\"\u003e\n    \u003csvg width=\"16\" height=\"20\" viewBox=\"0 0 16 20\" xmlns=\"http://www.w3.org/2000/svg\"\u003e\n        \u003cline x1=\"8\" y1=\"0\" x2=\"8\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"2\" y1=\"4\" x2=\"14\" y2=\"4\" stroke=\"#7C3AED\" stroke-width=\"1.5\"/\u003e\n        \u003cline x1=\"3\" y1=\"8\" x2=\"13\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"1.2\"/\u003e\n        \u003cline x1=\"4\" y1=\"4\" x2=\"2\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"12\" y1=\"4\" x2=\"14\" y2=\"8\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"5\" y1=\"8\" x2=\"3\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n        \u003cline x1=\"11\" y1=\"8\" x2=\"13\" y2=\"20\" stroke=\"#7C3AED\" stroke-width=\"0.8\"/\u003e\n    \u003c/svg\u003e\u003c/div\u003e",
+  "iconSize": [16, 20],
+  "iconAnchor": [8, 10],
+  "className": "empty",
+});
+        
+    
+            marker_4818589ac0ba9b91bccea22cdedde810.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4818589ac0ba9b91bccea22cdedde810.setIcon(div_icon_50675c8609f773ca3e4d5e4424da57b8);
+            
+    
+            var marker_a5dc8636d202adfd342ef7969060eb2f = L.marker(
+                [34.05, 126.3],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            marker_a5dc8636d202adfd342ef7969060eb2f.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a5dc8636d202adfd342ef7969060eb2f.setIcon(div_icon_50675c8609f773ca3e4d5e4424da57b8);
+            
+    
+            var marker_5e5b3bb03136bafd6d32b85cb697ac59 = L.marker(
+                [33.75, 126.31],
+                {
+}
+            ).addTo(feature_group_5758d69e188e36c8e7baa9f6063777e1);
+        
+    
+            marker_5e5b3bb03136bafd6d32b85cb697ac59.bindTooltip(
+                `<div>
+                     송전탑
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_5e5b3bb03136bafd6d32b85cb697ac59.setIcon(div_icon_50675c8609f773ca3e4d5e4424da57b8);
+            
+    
+            feature_group_5758d69e188e36c8e7baa9f6063777e1.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_1892c9c01d1694542eeb3c69427115ff = L.marker(
+                [35.316, 129.29],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_1bf3b9e188335399fc92c844ed3376a5 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "bolt",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_bf6e660385dd2b5040fdf32d078432a6 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e21717a0ebd5feea9bd05f9a0d28386f = $(`<div id="html_e21717a0ebd5feea9bd05f9a0d28386f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">고리/신고리 원자력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">원자력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">10,720MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">10기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_bf6e660385dd2b5040fdf32d078432a6.setContent(html_e21717a0ebd5feea9bd05f9a0d28386f);
+            
+        
+
+        marker_1892c9c01d1694542eeb3c69427115ff.bindPopup(popup_bf6e660385dd2b5040fdf32d078432a6)
+        ;
+
+        
+    
+    
+            marker_1892c9c01d1694542eeb3c69427115ff.bindTooltip(
+                `<div>
+                     고리/신고리 원자력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1892c9c01d1694542eeb3c69427115ff.setIcon(icon_1bf3b9e188335399fc92c844ed3376a5);
+            
+    
+            var marker_1c6865719a077e8a951ecd0d7b5be61e = L.marker(
+                [35.413, 126.416],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_2f2506ebcf80d6661ea8e8d21ee7980c = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "bolt",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1970ae4536150e1f731db6bfe2bf3a16 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_3969e94a3cbf829026f859265e19f735 = $(`<div id="html_3969e94a3cbf829026f859265e19f735" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">한빛(영광) 원자력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">원자력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">5,900MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">6기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_1970ae4536150e1f731db6bfe2bf3a16.setContent(html_3969e94a3cbf829026f859265e19f735);
+            
+        
+
+        marker_1c6865719a077e8a951ecd0d7b5be61e.bindPopup(popup_1970ae4536150e1f731db6bfe2bf3a16)
+        ;
+
+        
+    
+    
+            marker_1c6865719a077e8a951ecd0d7b5be61e.bindTooltip(
+                `<div>
+                     한빛(영광) 원자력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1c6865719a077e8a951ecd0d7b5be61e.setIcon(icon_2f2506ebcf80d6661ea8e8d21ee7980c);
+            
+    
+            var marker_49478a94ed65c10a04ebbd03d1dc83eb = L.marker(
+                [37.093, 129.383],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_fe481f039d01e3cb26b23bc9ce14e524 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "bolt",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_1079889cc46f6ddeaf32dd0844c414eb = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8ae38a04909438dba556684c120a4f61 = $(`<div id="html_8ae38a04909438dba556684c120a4f61" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">한울(울진) 원자력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">원자력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">5,900MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">6기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_1079889cc46f6ddeaf32dd0844c414eb.setContent(html_8ae38a04909438dba556684c120a4f61);
+            
+        
+
+        marker_49478a94ed65c10a04ebbd03d1dc83eb.bindPopup(popup_1079889cc46f6ddeaf32dd0844c414eb)
+        ;
+
+        
+    
+    
+            marker_49478a94ed65c10a04ebbd03d1dc83eb.bindTooltip(
+                `<div>
+                     한울(울진) 원자력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_49478a94ed65c10a04ebbd03d1dc83eb.setIcon(icon_fe481f039d01e3cb26b23bc9ce14e524);
+            
+    
+            var marker_ccb9e90efd955c4a0d7a8be4e48f9c14 = L.marker(
+                [35.714, 129.476],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_1ef4b0e99cf74077d0483859fed1f60f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "bolt",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e3d01a54895873b33670489b3a2febe4 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_bc3b573dd0617177751127ca59d31018 = $(`<div id="html_bc3b573dd0617177751127ca59d31018" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">월성 원자력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">원자력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">4,796MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">5기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_e3d01a54895873b33670489b3a2febe4.setContent(html_bc3b573dd0617177751127ca59d31018);
+            
+        
+
+        marker_ccb9e90efd955c4a0d7a8be4e48f9c14.bindPopup(popup_e3d01a54895873b33670489b3a2febe4)
+        ;
+
+        
+    
+    
+            marker_ccb9e90efd955c4a0d7a8be4e48f9c14.bindTooltip(
+                `<div>
+                     월성 원자력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_ccb9e90efd955c4a0d7a8be4e48f9c14.setIcon(icon_1ef4b0e99cf74077d0483859fed1f60f);
+            
+    
+            var marker_e831360fe7ff089760124aa65b6b0650 = L.marker(
+                [37.098, 129.38],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_2eee7919e22f5fc1b94d9651cf905b0e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "bolt",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_61238ead71cfd8af08594e238f7925df = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e95845317e7b31346a774fc3411a155d = $(`<div id="html_e95845317e7b31346a774fc3411a155d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">새울(신한울) 원자력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">원자력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">2,800MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">2기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_61238ead71cfd8af08594e238f7925df.setContent(html_e95845317e7b31346a774fc3411a155d);
+            
+        
+
+        marker_e831360fe7ff089760124aa65b6b0650.bindPopup(popup_61238ead71cfd8af08594e238f7925df)
+        ;
+
+        
+    
+    
+            marker_e831360fe7ff089760124aa65b6b0650.bindTooltip(
+                `<div>
+                     새울(신한울) 원자력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e831360fe7ff089760124aa65b6b0650.setIcon(icon_2eee7919e22f5fc1b94d9651cf905b0e);
+            
+    
+            var marker_bf7c494c15b5ba43c5d181beab4741dd = L.marker(
+                [36.975, 126.598],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_7f8274f01317befe3f4b003f9ea433fb = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_63f2007bd65061068e14c28268743ec2 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_bd9020965c41f1bb9c0746f65c3ab11c = $(`<div id="html_bd9020965c41f1bb9c0746f65c3ab11c" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">당진 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">6,040MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">10기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국동서발전</td></tr></table>     </div></div>`)[0];
+                popup_63f2007bd65061068e14c28268743ec2.setContent(html_bd9020965c41f1bb9c0746f65c3ab11c);
+            
+        
+
+        marker_bf7c494c15b5ba43c5d181beab4741dd.bindPopup(popup_63f2007bd65061068e14c28268743ec2)
+        ;
+
+        
+    
+    
+            marker_bf7c494c15b5ba43c5d181beab4741dd.bindTooltip(
+                `<div>
+                     당진 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_bf7c494c15b5ba43c5d181beab4741dd.setIcon(icon_7f8274f01317befe3f4b003f9ea433fb);
+            
+    
+            var marker_343d0bc201357410dc4f5b40c7eb9df9 = L.marker(
+                [36.77, 126.26],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_c5bccecba6d3b6c66ef2fb26e049d0cc = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d841c4f6ff6244501624d771ffb4d476 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_b8d6c493849bae82a210f9639a874b5d = $(`<div id="html_b8d6c493849bae82a210f9639a874b5d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">태안 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">6,100MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">10기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국서부발전</td></tr></table>     </div></div>`)[0];
+                popup_d841c4f6ff6244501624d771ffb4d476.setContent(html_b8d6c493849bae82a210f9639a874b5d);
+            
+        
+
+        marker_343d0bc201357410dc4f5b40c7eb9df9.bindPopup(popup_d841c4f6ff6244501624d771ffb4d476)
+        ;
+
+        
+    
+    
+            marker_343d0bc201357410dc4f5b40c7eb9df9.bindTooltip(
+                `<div>
+                     태안 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_343d0bc201357410dc4f5b40c7eb9df9.setIcon(icon_c5bccecba6d3b6c66ef2fb26e049d0cc);
+            
+    
+            var marker_0d869349b62a2f081d7c9e8a1c42c8b5 = L.marker(
+                [36.38, 126.49],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_bb079cb6e6d16c053acc051ce58ab1a0 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c4542f80a1ed7f12f0d7d936949e5254 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_9636521efeb7184601a33c4df7befb7f = $(`<div id="html_9636521efeb7184601a33c4df7befb7f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">보령 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">4,000MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">8기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국중부발전</td></tr></table>     </div></div>`)[0];
+                popup_c4542f80a1ed7f12f0d7d936949e5254.setContent(html_9636521efeb7184601a33c4df7befb7f);
+            
+        
+
+        marker_0d869349b62a2f081d7c9e8a1c42c8b5.bindPopup(popup_c4542f80a1ed7f12f0d7d936949e5254)
+        ;
+
+        
+    
+    
+            marker_0d869349b62a2f081d7c9e8a1c42c8b5.bindTooltip(
+                `<div>
+                     보령 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0d869349b62a2f081d7c9e8a1c42c8b5.setIcon(icon_bb079cb6e6d16c053acc051ce58ab1a0);
+            
+    
+            var marker_1d696b074f670845bb1e0622b70699a8 = L.marker(
+                [34.96, 127.88],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_726e70f6cb52cacf4ffb787361acc841 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_ad62a9c327d3222a0780667c1d8d8bc0 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_5e7ce6c76ea0e4175753d46ddb2af336 = $(`<div id="html_5e7ce6c76ea0e4175753d46ddb2af336" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">하동 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">4,000MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">8기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국남부발전</td></tr></table>     </div></div>`)[0];
+                popup_ad62a9c327d3222a0780667c1d8d8bc0.setContent(html_5e7ce6c76ea0e4175753d46ddb2af336);
+            
+        
+
+        marker_1d696b074f670845bb1e0622b70699a8.bindPopup(popup_ad62a9c327d3222a0780667c1d8d8bc0)
+        ;
+
+        
+    
+    
+            marker_1d696b074f670845bb1e0622b70699a8.bindTooltip(
+                `<div>
+                     하동 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_1d696b074f670845bb1e0622b70699a8.setIcon(icon_726e70f6cb52cacf4ffb787361acc841);
+            
+    
+            var marker_d63da6ad01d0a9026d276f03a51a556b = L.marker(
+                [34.913, 128.068],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_85f973958e456841037789989429d567 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3d31ca35e6a3d5f6b75f94e425cfc48b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_400c17b587929ef0d4dda13ddefe4f9d = $(`<div id="html_400c17b587929ef0d4dda13ddefe4f9d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">삼천포 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">3,240MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">6기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국남동발전</td></tr></table>     </div></div>`)[0];
+                popup_3d31ca35e6a3d5f6b75f94e425cfc48b.setContent(html_400c17b587929ef0d4dda13ddefe4f9d);
+            
+        
+
+        marker_d63da6ad01d0a9026d276f03a51a556b.bindPopup(popup_3d31ca35e6a3d5f6b75f94e425cfc48b)
+        ;
+
+        
+    
+    
+            marker_d63da6ad01d0a9026d276f03a51a556b.bindTooltip(
+                `<div>
+                     삼천포 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d63da6ad01d0a9026d276f03a51a556b.setIcon(icon_85f973958e456841037789989429d567);
+            
+    
+            var marker_4dbd3b1b7c4293543d643ee5c94d0be2 = L.marker(
+                [37.24, 126.43],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_5b371fb77614d9b9307b3a8c3ec3c718 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "darkred",
+  "iconColor": "white",
+  "icon": "industry",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_298c45df5525f6e2d9567f8ff5b4465b = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_903420bb8ae8f5d92d20c31a60a703ab = $(`<div id="html_903420bb8ae8f5d92d20c31a60a703ab" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">영흥 화력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">석탄화력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">5,080MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">6기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국남동발전</td></tr></table>     </div></div>`)[0];
+                popup_298c45df5525f6e2d9567f8ff5b4465b.setContent(html_903420bb8ae8f5d92d20c31a60a703ab);
+            
+        
+
+        marker_4dbd3b1b7c4293543d643ee5c94d0be2.bindPopup(popup_298c45df5525f6e2d9567f8ff5b4465b)
+        ;
+
+        
+    
+    
+            marker_4dbd3b1b7c4293543d643ee5c94d0be2.bindTooltip(
+                `<div>
+                     영흥 화력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_4dbd3b1b7c4293543d643ee5c94d0be2.setIcon(icon_5b371fb77614d9b9307b3a8c3ec3c718);
+            
+    
+            var marker_fd3dc213ca4a1de6d0d002210b2ccb4c = L.marker(
+                [37.455, 126.59],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_c8345c24d8688198c2d922f8f0712e09 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9e78a67e7fe68bbba3c82847c4d51659 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_8ce1feb0356dc18b8163282ee905f690 = $(`<div id="html_8ce1feb0356dc18b8163282ee905f690" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">인천 LNG복합</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">LNG발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">3,413MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">8기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국중부발전</td></tr></table>     </div></div>`)[0];
+                popup_9e78a67e7fe68bbba3c82847c4d51659.setContent(html_8ce1feb0356dc18b8163282ee905f690);
+            
+        
+
+        marker_fd3dc213ca4a1de6d0d002210b2ccb4c.bindPopup(popup_9e78a67e7fe68bbba3c82847c4d51659)
+        ;
+
+        
+    
+    
+            marker_fd3dc213ca4a1de6d0d002210b2ccb4c.bindTooltip(
+                `<div>
+                     인천 LNG복합
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fd3dc213ca4a1de6d0d002210b2ccb4c.setIcon(icon_c8345c24d8688198c2d922f8f0712e09);
+            
+    
+            var marker_11bb49f744fca6861a25b9afc1320d76 = L.marker(
+                [36.97, 126.87],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_46a22e45f7198c64962ad98de58d83b3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_2195c4b704a67bec8c15d8f1dabd231a = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_11d419e9e7e20d06e472049549d91047 = $(`<div id="html_11d419e9e7e20d06e472049549d91047" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">평택 LNG복합</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">LNG발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">1,972MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">6기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국중부발전</td></tr></table>     </div></div>`)[0];
+                popup_2195c4b704a67bec8c15d8f1dabd231a.setContent(html_11d419e9e7e20d06e472049549d91047);
+            
+        
+
+        marker_11bb49f744fca6861a25b9afc1320d76.bindPopup(popup_2195c4b704a67bec8c15d8f1dabd231a)
+        ;
+
+        
+    
+    
+            marker_11bb49f744fca6861a25b9afc1320d76.bindTooltip(
+                `<div>
+                     평택 LNG복합
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_11bb49f744fca6861a25b9afc1320d76.setIcon(icon_46a22e45f7198c64962ad98de58d83b3);
+            
+    
+            var marker_aaa72a28f926dfed4d5e49ecc308b81c = L.marker(
+                [37.46, 126.58],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_705e219178c7fa58824f36453af72a9d = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "orange",
+  "iconColor": "white",
+  "icon": "fire",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4084cc5278d0838c0d2dde1371259abf = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_c6f0e4e8e29cff439cde0c4f5ca1c77f = $(`<div id="html_c6f0e4e8e29cff439cde0c4f5ca1c77f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">서인천 LNG복합</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">LNG발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">1,800MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">5기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국서부발전</td></tr></table>     </div></div>`)[0];
+                popup_4084cc5278d0838c0d2dde1371259abf.setContent(html_c6f0e4e8e29cff439cde0c4f5ca1c77f);
+            
+        
+
+        marker_aaa72a28f926dfed4d5e49ecc308b81c.bindPopup(popup_4084cc5278d0838c0d2dde1371259abf)
+        ;
+
+        
+    
+    
+            marker_aaa72a28f926dfed4d5e49ecc308b81c.bindTooltip(
+                `<div>
+                     서인천 LNG복합
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_aaa72a28f926dfed4d5e49ecc308b81c.setIcon(icon_705e219178c7fa58824f36453af72a9d);
+            
+    
+            var marker_a480827e60f77bf4271f8f604188c0f3 = L.marker(
+                [38.05, 128.64],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_899f7849edfd94d103054284295a7c3f = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tint",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_333b8f8788eda951a1df8b0341e4463f = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_49f90f7cee37a8ffa82c9761d67906fd = $(`<div id="html_49f90f7cee37a8ffa82c9761d67906fd" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">양양 양수발전</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">수력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">1,000MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">4기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_333b8f8788eda951a1df8b0341e4463f.setContent(html_49f90f7cee37a8ffa82c9761d67906fd);
+            
+        
+
+        marker_a480827e60f77bf4271f8f604188c0f3.bindPopup(popup_333b8f8788eda951a1df8b0341e4463f)
+        ;
+
+        
+    
+    
+            marker_a480827e60f77bf4271f8f604188c0f3.bindTooltip(
+                `<div>
+                     양양 양수발전
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a480827e60f77bf4271f8f604188c0f3.setIcon(icon_899f7849edfd94d103054284295a7c3f);
+            
+    
+            var marker_3585409096156958c05525c8f8811f03 = L.marker(
+                [37.73, 127.44],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_b5a900721edb0b574b9fe6e6eb0c9113 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "blue",
+  "iconColor": "white",
+  "icon": "tint",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_8cd19a17b38ec099254075caba9cf1cf = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_678df3069c819f4d9e336e4c672996f7 = $(`<div id="html_678df3069c819f4d9e336e4c672996f7" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">청평 수력발전</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">수력발전소</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">139MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">4기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">한국수력원자력</td></tr></table>     </div></div>`)[0];
+                popup_8cd19a17b38ec099254075caba9cf1cf.setContent(html_678df3069c819f4d9e336e4c672996f7);
+            
+        
+
+        marker_3585409096156958c05525c8f8811f03.bindPopup(popup_8cd19a17b38ec099254075caba9cf1cf)
+        ;
+
+        
+    
+    
+            marker_3585409096156958c05525c8f8811f03.bindTooltip(
+                `<div>
+                     청평 수력발전
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_3585409096156958c05525c8f8811f03.setIcon(icon_b5a900721edb0b574b9fe6e6eb0c9113);
+            
+    
+            var marker_fd64465e80accd69db3a40fefbd6d0ae = L.marker(
+                [33.38, 126.27],
+                {
+}
+            ).addTo(feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9);
+        
+    
+            var icon_ac2b8af361bade546593e989a3a0cfc8 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d47e5516cb857365e506ec2c3d726dc5 = L.popup({
+  "maxWidth": 280,
+});
+
+        
+            
+                var html_e78e4ad8c35ae432f77fe361bbf03da1 = $(`<div id="html_e78e4ad8c35ae432f77fe361bbf03da1" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">제주 한림풍력</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">유형</td><td style="padding:3px 0;">신재생에너지</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">설비용량</td><td style="padding:3px 0;">100MW</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">호기수</td><td style="padding:3px 0;">20기</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">운영사</td><td style="padding:3px 0;">제주에너지공사</td></tr></table>     </div></div>`)[0];
+                popup_d47e5516cb857365e506ec2c3d726dc5.setContent(html_e78e4ad8c35ae432f77fe361bbf03da1);
+            
+        
+
+        marker_fd64465e80accd69db3a40fefbd6d0ae.bindPopup(popup_d47e5516cb857365e506ec2c3d726dc5)
+        ;
+
+        
+    
+    
+            marker_fd64465e80accd69db3a40fefbd6d0ae.bindTooltip(
+                `<div>
+                     제주 한림풍력
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fd64465e80accd69db3a40fefbd6d0ae.setIcon(icon_ac2b8af361bade546593e989a3a0cfc8);
+            
+    
+            feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_a71ca1c2fc030d35a07de91b170d6f68 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_04c36ee93581ff2c3985a0987d41ba9d = L.circleMarker(
+                [37.005, 127.183],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_17ec2eb3533b62ff26c0256a83bafdf9 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_1decdd34df6f843a085d70ed055af26c = $(`<div id="html_1decdd34df6f843a085d70ed055af26c" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신안성 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">6,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_17ec2eb3533b62ff26c0256a83bafdf9.setContent(html_1decdd34df6f843a085d70ed055af26c);
+            
+        
+
+        circle_marker_04c36ee93581ff2c3985a0987d41ba9d.bindPopup(popup_17ec2eb3533b62ff26c0256a83bafdf9)
+        ;
+
+        
+    
+    
+            circle_marker_04c36ee93581ff2c3985a0987d41ba9d.bindTooltip(
+                `<div>
+                     신안성 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f8a0227b648070a818062418946d8f09 = L.circleMarker(
+                [37.798, 127.505],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_a9902d80fad77f5904cac0815af2974f = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_57403776ac695bbc966854a0c77652c9 = $(`<div id="html_57403776ac695bbc966854a0c77652c9" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신가평 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">8,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_a9902d80fad77f5904cac0815af2974f.setContent(html_57403776ac695bbc966854a0c77652c9);
+            
+        
+
+        circle_marker_f8a0227b648070a818062418946d8f09.bindPopup(popup_a9902d80fad77f5904cac0815af2974f)
+        ;
+
+        
+    
+    
+            circle_marker_f8a0227b648070a818062418946d8f09.bindTooltip(
+                `<div>
+                     신가평 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_905ef79b32e8137a5ff89466e510299c = L.circleMarker(
+                [37.12, 128.9],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_e6eb870dc1ca8cd22f85eb8ee8fa1a59 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_4938d49851dc8347df650081ae3d6523 = $(`<div id="html_4938d49851dc8347df650081ae3d6523" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신태백 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">4,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_e6eb870dc1ca8cd22f85eb8ee8fa1a59.setContent(html_4938d49851dc8347df650081ae3d6523);
+            
+        
+
+        circle_marker_905ef79b32e8137a5ff89466e510299c.bindPopup(popup_e6eb870dc1ca8cd22f85eb8ee8fa1a59)
+        ;
+
+        
+    
+    
+            circle_marker_905ef79b32e8137a5ff89466e510299c.bindTooltip(
+                `<div>
+                     신태백 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_908399141170440694a32af378b4ccf1 = L.circleMarker(
+                [35.62, 128.85],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_548fc0113003a2f5c02d6cc655912478 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3cf8a25e4ba5a2518dadee035fde0650 = $(`<div id="html_3cf8a25e4ba5a2518dadee035fde0650" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">북경남 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">6,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_548fc0113003a2f5c02d6cc655912478.setContent(html_3cf8a25e4ba5a2518dadee035fde0650);
+            
+        
+
+        circle_marker_908399141170440694a32af378b4ccf1.bindPopup(popup_548fc0113003a2f5c02d6cc655912478)
+        ;
+
+        
+    
+    
+            circle_marker_908399141170440694a32af378b4ccf1.bindTooltip(
+                `<div>
+                     북경남 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_1b8c8a772c0e8711e15719207172546a = L.circleMarker(
+                [36.7, 126.58],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "red", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 12, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_41df88712a91e79ba20d3a7cb7ecea89 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_609de7471b9cf71bae6eaf90b2ba071d = $(`<div id="html_609de7471b9cf71bae6eaf90b2ba071d" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신서산 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">765kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">4,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_41df88712a91e79ba20d3a7cb7ecea89.setContent(html_609de7471b9cf71bae6eaf90b2ba071d);
+            
+        
+
+        circle_marker_1b8c8a772c0e8711e15719207172546a.bindPopup(popup_41df88712a91e79ba20d3a7cb7ecea89)
+        ;
+
+        
+    
+    
+            circle_marker_1b8c8a772c0e8711e15719207172546a.bindTooltip(
+                `<div>
+                     신서산 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_0e3d84c3853fe5dad6e7e364d08ca9d4 = L.circleMarker(
+                [37.54, 127.08],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_73ecb903a3c0bb2be00cb559ea1a15fc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_398b22feafb66e6321fd47aee01e8e93 = $(`<div id="html_398b22feafb66e6321fd47aee01e8e93" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">동서울 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">3,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_73ecb903a3c0bb2be00cb559ea1a15fc.setContent(html_398b22feafb66e6321fd47aee01e8e93);
+            
+        
+
+        circle_marker_0e3d84c3853fe5dad6e7e364d08ca9d4.bindPopup(popup_73ecb903a3c0bb2be00cb559ea1a15fc)
+        ;
+
+        
+    
+    
+            circle_marker_0e3d84c3853fe5dad6e7e364d08ca9d4.bindTooltip(
+                `<div>
+                     동서울 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_5300aa1c4397c818c82476cb07af4852 = L.circleMarker(
+                [37.55, 126.87],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_e0acdce8b720c831e860487b8e2b9895 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_7a09c49cc28f19dba2d0f3a6e944f677 = $(`<div id="html_7a09c49cc28f19dba2d0f3a6e944f677" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">서서울 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,500MVA</td></tr></table>     </div></div>`)[0];
+                popup_e0acdce8b720c831e860487b8e2b9895.setContent(html_7a09c49cc28f19dba2d0f3a6e944f677);
+            
+        
+
+        circle_marker_5300aa1c4397c818c82476cb07af4852.bindPopup(popup_e0acdce8b720c831e860487b8e2b9895)
+        ;
+
+        
+    
+    
+            circle_marker_5300aa1c4397c818c82476cb07af4852.bindTooltip(
+                `<div>
+                     서서울 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_f9ff9a9ab145c7fc83f6570ad024d7c9 = L.circleMarker(
+                [37.43, 126.65],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_5ac70bbc0513087723cad567e33045a1 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_18729ec44d8d3666af28020f81810e9b = $(`<div id="html_18729ec44d8d3666af28020f81810e9b" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신인천 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_5ac70bbc0513087723cad567e33045a1.setContent(html_18729ec44d8d3666af28020f81810e9b);
+            
+        
+
+        circle_marker_f9ff9a9ab145c7fc83f6570ad024d7c9.bindPopup(popup_5ac70bbc0513087723cad567e33045a1)
+        ;
+
+        
+    
+    
+            circle_marker_f9ff9a9ab145c7fc83f6570ad024d7c9.bindTooltip(
+                `<div>
+                     신인천 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_43decbde0f441bdc5d3f1b4d45e4c1f5 = L.circleMarker(
+                [37.2, 127.1],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_0369fe9756a4b4ee04237ce5a684cd53 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_3cefac305eaa4325133a29b2bfecd249 = $(`<div id="html_3cefac305eaa4325133a29b2bfecd249" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">신용인 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,500MVA</td></tr></table>     </div></div>`)[0];
+                popup_0369fe9756a4b4ee04237ce5a684cd53.setContent(html_3cefac305eaa4325133a29b2bfecd249);
+            
+        
+
+        circle_marker_43decbde0f441bdc5d3f1b4d45e4c1f5.bindPopup(popup_0369fe9756a4b4ee04237ce5a684cd53)
+        ;
+
+        
+    
+    
+            circle_marker_43decbde0f441bdc5d3f1b4d45e4c1f5.bindTooltip(
+                `<div>
+                     신용인 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_93cd0938b27d70f7f3ea4a4d5f70ca58 = L.circleMarker(
+                [36.35, 127.4],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_d032aec339a91c2473e0e3d2767306db = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_30a0ab18585e78e4d7fcf4516037f39b = $(`<div id="html_30a0ab18585e78e4d7fcf4516037f39b" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">대전 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_d032aec339a91c2473e0e3d2767306db.setContent(html_30a0ab18585e78e4d7fcf4516037f39b);
+            
+        
+
+        circle_marker_93cd0938b27d70f7f3ea4a4d5f70ca58.bindPopup(popup_d032aec339a91c2473e0e3d2767306db)
+        ;
+
+        
+    
+    
+            circle_marker_93cd0938b27d70f7f3ea4a4d5f70ca58.bindTooltip(
+                `<div>
+                     대전 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_58f630290c3becb835e514305d6baab4 = L.circleMarker(
+                [35.88, 128.61],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_2390b7b002e4d0b73f566ddd81c4b6b8 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_ab1a3a854d6c94ca2d255e2d03d9829a = $(`<div id="html_ab1a3a854d6c94ca2d255e2d03d9829a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">대구 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_2390b7b002e4d0b73f566ddd81c4b6b8.setContent(html_ab1a3a854d6c94ca2d255e2d03d9829a);
+            
+        
+
+        circle_marker_58f630290c3becb835e514305d6baab4.bindPopup(popup_2390b7b002e4d0b73f566ddd81c4b6b8)
+        ;
+
+        
+    
+    
+            circle_marker_58f630290c3becb835e514305d6baab4.bindTooltip(
+                `<div>
+                     대구 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_4a6f1227964e8fa1ef57b4ad1ef5b31d = L.circleMarker(
+                [35.17, 126.91],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_03374a2101c6e8cc8c49df3851722a76 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_35ae1fcd9a9d74aa212d397698b2b792 = $(`<div id="html_35ae1fcd9a9d74aa212d397698b2b792" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">광주 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">1,500MVA</td></tr></table>     </div></div>`)[0];
+                popup_03374a2101c6e8cc8c49df3851722a76.setContent(html_35ae1fcd9a9d74aa212d397698b2b792);
+            
+        
+
+        circle_marker_4a6f1227964e8fa1ef57b4ad1ef5b31d.bindPopup(popup_03374a2101c6e8cc8c49df3851722a76)
+        ;
+
+        
+    
+    
+            circle_marker_4a6f1227964e8fa1ef57b4ad1ef5b31d.bindTooltip(
+                `<div>
+                     광주 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_159448d5b89de4db027c1287807be215 = L.circleMarker(
+                [35.18, 129.05],
+                {"bubblingMouseEvents": true, "color": "orange", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "orange", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 8, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a71ca1c2fc030d35a07de91b170d6f68);
+        
+    
+        var popup_fc6e54b6a8d6650686380c2a4636bcbc = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_203a0e2b300640cda296d93cca2b0427 = $(`<div id="html_203a0e2b300640cda296d93cca2b0427" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">부산 변전소</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">전압</td><td style="padding:3px 0;">345kV</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">용량</td><td style="padding:3px 0;">2,000MVA</td></tr></table>     </div></div>`)[0];
+                popup_fc6e54b6a8d6650686380c2a4636bcbc.setContent(html_203a0e2b300640cda296d93cca2b0427);
+            
+        
+
+        circle_marker_159448d5b89de4db027c1287807be215.bindPopup(popup_fc6e54b6a8d6650686380c2a4636bcbc)
+        ;
+
+        
+    
+    
+            circle_marker_159448d5b89de4db027c1287807be215.bindTooltip(
+                `<div>
+                     부산 변전소
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            feature_group_a71ca1c2fc030d35a07de91b170d6f68.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var feature_group_820e4bf5656e2ed54164084706ad292c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var marker_0c844d9731d15546cb008a4f0fe82f19 = L.marker(
+                [37.56, 126.97],
+                {
+}
+            ).addTo(feature_group_820e4bf5656e2ed54164084706ad292c);
+        
+    
+            var icon_cb6060cfb858158c430bf765f0e41025 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "cadetblue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_a6ad707d3187aa870ae267a5b2754f77 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_371e3924703bf2a2588f976bff837c06 = $(`<div id="html_371e3924703bf2a2588f976bff837c06" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">서울/수도권</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">인구</td><td style="padding:3px 0;">2,600만</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">역할</td><td style="padding:3px 0;">주요 전력 소비지</td></tr></table>     </div></div>`)[0];
+                popup_a6ad707d3187aa870ae267a5b2754f77.setContent(html_371e3924703bf2a2588f976bff837c06);
+            
+        
+
+        marker_0c844d9731d15546cb008a4f0fe82f19.bindPopup(popup_a6ad707d3187aa870ae267a5b2754f77)
+        ;
+
+        
+    
+    
+            marker_0c844d9731d15546cb008a4f0fe82f19.bindTooltip(
+                `<div>
+                     서울/수도권
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0c844d9731d15546cb008a4f0fe82f19.setIcon(icon_cb6060cfb858158c430bf765f0e41025);
+            
+    
+            var marker_33122d246ac357d1dfafc93a25bdc21e = L.marker(
+                [35.17, 129.07],
+                {
+}
+            ).addTo(feature_group_820e4bf5656e2ed54164084706ad292c);
+        
+    
+            var icon_6f7ca81236b3c4bbe987378fbac901c1 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "cadetblue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_9b74d6c94816619361b74d6ceee67483 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_64d3d5e68d69d56c291423f46140cb34 = $(`<div id="html_64d3d5e68d69d56c291423f46140cb34" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">부산</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">인구</td><td style="padding:3px 0;">340만</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">역할</td><td style="padding:3px 0;">주요 전력 소비지</td></tr></table>     </div></div>`)[0];
+                popup_9b74d6c94816619361b74d6ceee67483.setContent(html_64d3d5e68d69d56c291423f46140cb34);
+            
+        
+
+        marker_33122d246ac357d1dfafc93a25bdc21e.bindPopup(popup_9b74d6c94816619361b74d6ceee67483)
+        ;
+
+        
+    
+    
+            marker_33122d246ac357d1dfafc93a25bdc21e.bindTooltip(
+                `<div>
+                     부산
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_33122d246ac357d1dfafc93a25bdc21e.setIcon(icon_6f7ca81236b3c4bbe987378fbac901c1);
+            
+    
+            var marker_d595b3e68db8a70428c462c1113d09fc = L.marker(
+                [35.87, 128.6],
+                {
+}
+            ).addTo(feature_group_820e4bf5656e2ed54164084706ad292c);
+        
+    
+            var icon_1d31bc0255364000a7a04a3f6c4e9ca6 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "cadetblue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_4be84a8221cb04b2165a09e05926a103 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_569c06a0d8c6f4361a2e93a15b716616 = $(`<div id="html_569c06a0d8c6f4361a2e93a15b716616" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">대구</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">인구</td><td style="padding:3px 0;">240만</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">역할</td><td style="padding:3px 0;">주요 전력 소비지</td></tr></table>     </div></div>`)[0];
+                popup_4be84a8221cb04b2165a09e05926a103.setContent(html_569c06a0d8c6f4361a2e93a15b716616);
+            
+        
+
+        marker_d595b3e68db8a70428c462c1113d09fc.bindPopup(popup_4be84a8221cb04b2165a09e05926a103)
+        ;
+
+        
+    
+    
+            marker_d595b3e68db8a70428c462c1113d09fc.bindTooltip(
+                `<div>
+                     대구
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d595b3e68db8a70428c462c1113d09fc.setIcon(icon_1d31bc0255364000a7a04a3f6c4e9ca6);
+            
+    
+            var marker_38463b81676c99040cdd03dca74c174f = L.marker(
+                [36.35, 127.38],
+                {
+}
+            ).addTo(feature_group_820e4bf5656e2ed54164084706ad292c);
+        
+    
+            var icon_91156f799bddccbf089f6d31c9bf385e = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "cadetblue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_d8fa51093f9cab785ccdf3eafa5be596 = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_21909dfab61e1fc50e767f16134ee174 = $(`<div id="html_21909dfab61e1fc50e767f16134ee174" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">대전/세종</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">인구</td><td style="padding:3px 0;">200만</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">역할</td><td style="padding:3px 0;">주요 전력 소비지</td></tr></table>     </div></div>`)[0];
+                popup_d8fa51093f9cab785ccdf3eafa5be596.setContent(html_21909dfab61e1fc50e767f16134ee174);
+            
+        
+
+        marker_38463b81676c99040cdd03dca74c174f.bindPopup(popup_d8fa51093f9cab785ccdf3eafa5be596)
+        ;
+
+        
+    
+    
+            marker_38463b81676c99040cdd03dca74c174f.bindTooltip(
+                `<div>
+                     대전/세종
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_38463b81676c99040cdd03dca74c174f.setIcon(icon_91156f799bddccbf089f6d31c9bf385e);
+            
+    
+            var marker_70f61796eb5d4e2e6dd797a1fa07034f = L.marker(
+                [35.16, 126.85],
+                {
+}
+            ).addTo(feature_group_820e4bf5656e2ed54164084706ad292c);
+        
+    
+            var icon_7e5cb24790560337aaef10dbe176d5a2 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "cadetblue",
+  "iconColor": "white",
+  "icon": "building",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_dc91d930de4c190562cd9a891540a4ce = L.popup({
+  "maxWidth": 250,
+});
+
+        
+            
+                var html_c710fad22731db55962d540ecb90b543 = $(`<div id="html_c710fad22731db55962d540ecb90b543" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;min-width:180px;">         <div style="background:#1e3a5f;color:#fff;padding:6px 10px;border-radius:4px 4px 0 0;                      font-size:13px;font-weight:700;">광주</div>         <table style="font-size:12px;padding:6px 10px;"><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">인구</td><td style="padding:3px 0;">150만</td></tr><tr><td style="font-weight:600;color:#555;padding:3px 10px 3px 0;">역할</td><td style="padding:3px 0;">주요 전력 소비지</td></tr></table>     </div></div>`)[0];
+                popup_dc91d930de4c190562cd9a891540a4ce.setContent(html_c710fad22731db55962d540ecb90b543);
+            
+        
+
+        marker_70f61796eb5d4e2e6dd797a1fa07034f.bindPopup(popup_dc91d930de4c190562cd9a891540a4ce)
+        ;
+
+        
+    
+    
+            marker_70f61796eb5d4e2e6dd797a1fa07034f.bindTooltip(
+                `<div>
+                     광주
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_70f61796eb5d4e2e6dd797a1fa07034f.setIcon(icon_7e5cb24790560337aaef10dbe176d5a2);
+            
+    
+            feature_group_820e4bf5656e2ed54164084706ad292c.addTo(map_77a18f195f496027560a055114ea6f23);
+        
+    
+            var layer_control_350cc232455352fb10b4cee35ab8520b_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_c95ee6c0720445f63f93f53b470006d8,
+                },
+                overlays :  {
+                    "765kV \uc1a1\uc804\uc120\ub85c" : feature_group_7cad99eefc2ef7a75fd1da8191bc1ba7,
+                    "345kV \uc1a1\uc804\uc120\ub85c" : feature_group_516f356fd0cc3e4efcb1b66025dfded3,
+                    "154kV \uc1a1\uc804\uc120\ub85c" : feature_group_4ec02b003d3ca788872311ca201f1f68,
+                    "HVDC \uc9c1\ub958\uc1a1\uc804" : feature_group_5758d69e188e36c8e7baa9f6063777e1,
+                    "\ubc1c\uc804\uc18c" : feature_group_f3717c6f10e5d2e3e15df961e0d4a9a9,
+                    "\ubcc0\uc804\uc18c" : feature_group_a71ca1c2fc030d35a07de91b170d6f68,
+                    "\uc8fc\uc694 \ub3c4\uc2dc" : feature_group_820e4bf5656e2ed54164084706ad292c,
+                },
+            };
+            let layer_control_350cc232455352fb10b4cee35ab8520b = L.control.layers(
+                layer_control_350cc232455352fb10b4cee35ab8520b_layers.base_layers,
+                layer_control_350cc232455352fb10b4cee35ab8520b_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_77a18f195f496027560a055114ea6f23);
+
+        
+    
+            var tile_layer_709aca37f4476d014cab3c9a168406dc = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors", "detect_retina": false, "max_native_zoom": 19, "max_zoom": 19, "min_zoom": 0, "no_wrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            );
+            var mini_map_62c5cd36d0fa167959ac5dbea14c8502 = new L.Control.MiniMap(
+                tile_layer_709aca37f4476d014cab3c9a168406dc,
+                {
+  "position": "bottomright",
+  "width": 150,
+  "height": 150,
+  "collapsedWidth": 25,
+  "collapsedHeight": 25,
+  "zoomLevelOffset": -5,
+  "centerFixed": false,
+  "zoomAnimation": false,
+  "toggleDisplay": true,
+  "autoToggleDisplay": false,
+  "minimized": false,
+}
+            );
+            map_77a18f195f496027560a055114ea6f23.addControl(mini_map_62c5cd36d0fa167959ac5dbea14c8502);
+        
+</script>
+</html>
