@@ -1,0 +1,295 @@
+{
+  "meta": {
+    "lastUpdate": "2026-02-02",
+    "pollster": "NESDC 통합",
+    "sampleSize": 1000,
+    "marginOfError": 3.1
+  },
+  "timeline": [
+    {
+      "date": "2026-01-05",
+      "surveys": [
+        {
+          "id": "seoul_20260105",
+          "region": "서울",
+          "regionCode": "11",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 42.5},
+            {"name": "이준호", "party": "국민의힘", "rate": 38.2},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "busan_20260105",
+          "region": "부산",
+          "regionCode": "26",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 45.1},
+            {"name": "김민수", "party": "민주당", "rate": 35.4},
+            {"name": "박영희", "party": "기타", "rate": 19.5}
+          ]
+        },
+        {
+          "id": "daegu_20260105",
+          "region": "대구",
+          "regionCode": "27",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 52.3},
+            {"name": "김민수", "party": "민주당", "rate": 28.1},
+            {"name": "박영희", "party": "기타", "rate": 19.6}
+          ]
+        },
+        {
+          "id": "incheon_20260105",
+          "region": "인천",
+          "regionCode": "28",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 44.2},
+            {"name": "이준호", "party": "국민의힘", "rate": 36.5},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "gwangju_20260105",
+          "region": "광주",
+          "regionCode": "29",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 58.7},
+            {"name": "이준호", "party": "국민의힘", "rate": 21.4},
+            {"name": "박영희", "party": "기타", "rate": 19.9}
+          ]
+        },
+        {
+          "id": "daejeon_20260105",
+          "region": "대전",
+          "regionCode": "30",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 46.8},
+            {"name": "이준호", "party": "국민의힘", "rate": 33.9},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "ulsan_20260105",
+          "region": "울산",
+          "regionCode": "31",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 48.1},
+            {"name": "김민수", "party": "민주당", "rate": 32.6},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "sejong_20260105",
+          "region": "세종",
+          "regionCode": "36",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 50.2},
+            {"name": "이준호", "party": "국민의힘", "rate": 30.5},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "gg_20260105",
+          "region": "경기도",
+          "regionCode": "41",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 43.1},
+            {"name": "이준호", "party": "국민의힘", "rate": 37.6},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-01-12",
+      "surveys": [
+        {
+          "id": "seoul_20260112",
+          "region": "서울",
+          "regionCode": "11",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 43.2},
+            {"name": "이준호", "party": "국민의힘", "rate": 37.5},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "busan_20260112",
+          "region": "부산",
+          "regionCode": "26",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 46.2},
+            {"name": "김민수", "party": "민주당", "rate": 34.5},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        },
+        {
+          "id": "gg_20260112",
+          "region": "경기도",
+          "regionCode": "41",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 44.5},
+            {"name": "이준호", "party": "국민의힘", "rate": 36.2},
+            {"name": "박영희", "party": "기타", "rate": 19.3}
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-01-19",
+      "surveys": [
+        {
+          "id": "seoul_20260119",
+          "region": "서울",
+          "regionCode": "11",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 44.1},
+            {"name": "이준호", "party": "국민의힘", "rate": 36.8},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "busan_20260119",
+          "region": "부산",
+          "regionCode": "26",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 47.3},
+            {"name": "김민수", "party": "민주당", "rate": 33.6},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "daegu_20260119",
+          "region": "대구",
+          "regionCode": "27",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 51.5},
+            {"name": "김민수", "party": "민주당", "rate": 29.4},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "gg_20260119",
+          "region": "경기도",
+          "regionCode": "41",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 45.3},
+            {"name": "이준호", "party": "국민의힘", "rate": 35.6},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-01-26",
+      "surveys": [
+        {
+          "id": "seoul_20260126",
+          "region": "서울",
+          "regionCode": "11",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 45.2},
+            {"name": "이준호", "party": "국민의힘", "rate": 35.7},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "busan_20260126",
+          "region": "부산",
+          "regionCode": "26",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 48.1},
+            {"name": "김민수", "party": "민주당", "rate": 32.8},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "daegu_20260126",
+          "region": "대구",
+          "regionCode": "27",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 50.2},
+            {"name": "김민수", "party": "민주당", "rate": 30.7},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "gg_20260126",
+          "region": "경기도",
+          "regionCode": "41",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 46.1},
+            {"name": "이준호", "party": "국민의힘", "rate": 34.8},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        }
+      ]
+    },
+    {
+      "date": "2026-02-02",
+      "surveys": [
+        {
+          "id": "seoul_20260202",
+          "region": "서울",
+          "regionCode": "11",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 46.3},
+            {"name": "이준호", "party": "국민의힘", "rate": 34.6},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "busan_20260202",
+          "region": "부산",
+          "regionCode": "26",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 49.2},
+            {"name": "김민수", "party": "민주당", "rate": 31.7},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "daegu_20260202",
+          "region": "대구",
+          "regionCode": "27",
+          "candidates": [
+            {"name": "이준호", "party": "국민의힘", "rate": 49.8},
+            {"name": "김민수", "party": "민주당", "rate": 31.1},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "incheon_20260202",
+          "region": "인천",
+          "regionCode": "28",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 45.8},
+            {"name": "이준호", "party": "국민의힘", "rate": 35.1},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "gwangju_20260202",
+          "region": "광주",
+          "regionCode": "29",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 59.4},
+            {"name": "이준호", "party": "국민의힘", "rate": 21.5},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        },
+        {
+          "id": "gg_20260202",
+          "region": "경기도",
+          "regionCode": "41",
+          "candidates": [
+            {"name": "김민수", "party": "민주당", "rate": 47.2},
+            {"name": "이준호", "party": "국민의힘", "rate": 33.7},
+            {"name": "박영희", "party": "기타", "rate": 19.1}
+          ]
+        }
+      ]
+    }
+  ]
+}

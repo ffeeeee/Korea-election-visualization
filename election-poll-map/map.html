@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_dd884509101feaec131ea5c914f0bc51 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+    <div style="position: fixed;
+                bottom: 50px; right: 10px; width: 280px; height: auto;
+                background-color: white; border:2px solid grey; z-index:9999;
+                font-size:14px; padding: 10px; border-radius: 5px;
+                font-family: 'Malgun Gothic', sans-serif;">
+        <h4 style="margin: 0 0 10px 0; padding-bottom: 5px; border-bottom: 1px solid #ddd;">
+            ⚡ 범례
+        </h4>
+        <div style="margin-bottom: 8px;">
+            <span style="display:inline-block; width:12px; height:12px;
+                         background-color:#3b82f6; border-radius:50%; margin-right:5px;"></span>
+            <strong>민주당 우위 지역</strong>
+        </div>
+        <div style="margin-bottom: 8px;">
+            <span style="display:inline-block; width:12px; height:12px;
+                         background-color:#ef4444; border-radius:50%; margin-right:5px;"></span>
+            <strong>국민의힘 우위 지역</strong>
+        </div>
+        <div style="margin-bottom: 8px;">
+            <span style="display:inline-block; width:12px; height:12px;
+                         background-color:#8b949e; border-radius:50%; margin-right:5px;"></span>
+            <strong>기타 후보 우위</strong>
+        </div>
+        <hr style="margin: 8px 0; border: none; border-top: 1px solid #ddd;">
+        <div style="font-size: 12px; color: #666;">
+            <strong>마커 크기:</strong> 최고 지지율에 비례<br>
+            <strong>마지막 업데이트:</strong> 2026-02-02
+        </div>
+    </div>
+    
+    
+    <div style="position: fixed;
+                top: 10px; left: 50px;
+                background-color: white; border:2px solid grey; z-index:9999;
+                font-size:18px; padding: 15px; border-radius: 5px;
+                font-family: 'Malgun Gothic', sans-serif; font-weight: bold;">
+        📊 2026 지방선거 여론조사 시각화
+    </div>
+    
+    
+    <div style="position: fixed;
+                top: 70px; right: 10px; width: 280px;
+                background-color: white; border:1px solid #ddd; z-index:9999;
+                font-size:12px; padding: 10px; border-radius: 5px;
+                font-family: 'Malgun Gothic', sans-serif;">
+        <strong>사용 방법:</strong><br>
+        1. 왼쪽 목록에서 지역을 선택합니다<br>
+        2. 지도의 마커를 클릭하면 상세 정보를 봅니다<br>
+        3. 차트 섹션에서 시계열 데이터를 확인합니다
+    </div>
+    
+    
+            <div class="folium-map" id="map_dd884509101feaec131ea5c914f0bc51" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_dd884509101feaec131ea5c914f0bc51 = L.map(
+                "map_dd884509101feaec131ea5c914f0bc51",
+                {
+                    center: [36.3, 127.8],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 7,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_661aeb08a2db029248109718354c5e2a = L.tileLayer(
+                "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 20,
+  "maxNativeZoom": 20,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors \u0026copy; \u003ca href=\"https://carto.com/attributions\"\u003eCARTO\u003c/a\u003e",
+  "subdomains": "abcd",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_661aeb08a2db029248109718354c5e2a.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_76dba5b35a75a4b3ecfd76cb4d1c3bb7 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_0ec9bcc9b7a93b3bc255b57afa278dc7 = L.circleMarker(
+                [37.5665, 126.978],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.15, "stroke": true, "weight": 2}
+            ).addTo(feature_group_76dba5b35a75a4b3ecfd76cb4d1c3bb7);
+        
+    
+        var popup_01c7799415eed4b56458340a8f331247 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_fb93db0ed4e287bac36efdc0cdcf915f = $(`<div id="html_fb93db0ed4e287bac36efdc0cdcf915f" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">서울</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">46.3%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">34.6%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_01c7799415eed4b56458340a8f331247.setContent(html_fb93db0ed4e287bac36efdc0cdcf915f);
+            
+        
+
+        circle_marker_0ec9bcc9b7a93b3bc255b57afa278dc7.bindPopup(popup_01c7799415eed4b56458340a8f331247)
+        ;
+
+        
+    
+    
+            feature_group_76dba5b35a75a4b3ecfd76cb4d1c3bb7.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_fcad0165caddbf26edefc13e24842f5c = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_0425cf2c2c579f767f1dedf8022dc142 = L.circleMarker(
+                [35.1796, 129.0756],
+                {"bubblingMouseEvents": true, "color": "#ef4444", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ef4444", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.6, "stroke": true, "weight": 2}
+            ).addTo(feature_group_fcad0165caddbf26edefc13e24842f5c);
+        
+    
+        var popup_a964023ce88dbf7da268e703b4c26f3c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_83e61bdf07d1ea7a8135c048d5ba10cc = $(`<div id="html_83e61bdf07d1ea7a8135c048d5ba10cc" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">부산</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">49.2%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">31.7%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_a964023ce88dbf7da268e703b4c26f3c.setContent(html_83e61bdf07d1ea7a8135c048d5ba10cc);
+            
+        
+
+        circle_marker_0425cf2c2c579f767f1dedf8022dc142.bindPopup(popup_a964023ce88dbf7da268e703b4c26f3c)
+        ;
+
+        
+    
+    
+            feature_group_fcad0165caddbf26edefc13e24842f5c.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_b9a86ce0142713992907b7733a5a6ee7 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_8bb28ce552fce4e1bb010cc76b696038 = L.circleMarker(
+                [35.8714, 128.6014],
+                {"bubblingMouseEvents": true, "color": "#ef4444", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ef4444", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.9, "stroke": true, "weight": 2}
+            ).addTo(feature_group_b9a86ce0142713992907b7733a5a6ee7);
+        
+    
+        var popup_472a788865f7ed0b06750918180ca214 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_53c3258c60f35d15a2814aedfd5381be = $(`<div id="html_53c3258c60f35d15a2814aedfd5381be" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">대구</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">49.8%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">31.1%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_472a788865f7ed0b06750918180ca214.setContent(html_53c3258c60f35d15a2814aedfd5381be);
+            
+        
+
+        circle_marker_8bb28ce552fce4e1bb010cc76b696038.bindPopup(popup_472a788865f7ed0b06750918180ca214)
+        ;
+
+        
+    
+    
+            feature_group_b9a86ce0142713992907b7733a5a6ee7.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_2c3b7117b83d2a906460b252f58a1b5e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_f1540548ecb54bd7b5b11cfed799aaf7 = L.circleMarker(
+                [37.4563, 126.7052],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 22.9, "stroke": true, "weight": 2}
+            ).addTo(feature_group_2c3b7117b83d2a906460b252f58a1b5e);
+        
+    
+        var popup_35896145ce9993ded6c04076c005762e = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_a6b89426cba32252146d8e64b51fac86 = $(`<div id="html_a6b89426cba32252146d8e64b51fac86" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">인천</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">45.8%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">35.1%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_35896145ce9993ded6c04076c005762e.setContent(html_a6b89426cba32252146d8e64b51fac86);
+            
+        
+
+        circle_marker_f1540548ecb54bd7b5b11cfed799aaf7.bindPopup(popup_35896145ce9993ded6c04076c005762e)
+        ;
+
+        
+    
+    
+            feature_group_2c3b7117b83d2a906460b252f58a1b5e.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_a9b1f000d5a12c7711025392f7138136 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_96e47fdaed407b8929459bc27b8233c9 = L.circleMarker(
+                [35.1595, 126.8526],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 29.7, "stroke": true, "weight": 2}
+            ).addTo(feature_group_a9b1f000d5a12c7711025392f7138136);
+        
+    
+        var popup_f9ff62c30876a205498e5d08cb4328d4 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_66cd6e01acb4c83c0c57b97ec4472d23 = $(`<div id="html_66cd6e01acb4c83c0c57b97ec4472d23" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">광주</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">59.4%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">21.5%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_f9ff62c30876a205498e5d08cb4328d4.setContent(html_66cd6e01acb4c83c0c57b97ec4472d23);
+            
+        
+
+        circle_marker_96e47fdaed407b8929459bc27b8233c9.bindPopup(popup_f9ff62c30876a205498e5d08cb4328d4)
+        ;
+
+        
+    
+    
+            feature_group_a9b1f000d5a12c7711025392f7138136.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_d802df0970a38127d29ca63c1e4ef26a = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_89558412b62ead3e477f6526946bedb7 = L.circleMarker(
+                [36.3504, 127.3845],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.4, "stroke": true, "weight": 2}
+            ).addTo(feature_group_d802df0970a38127d29ca63c1e4ef26a);
+        
+    
+        var popup_f3fc7e3841d8f0232000bc2baf3d6d06 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_1cebf1e0408b4fe01bf1d33badd5dcdd = $(`<div id="html_1cebf1e0408b4fe01bf1d33badd5dcdd" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">대전</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-01-05</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">46.8%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">33.9%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.3%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_f3fc7e3841d8f0232000bc2baf3d6d06.setContent(html_1cebf1e0408b4fe01bf1d33badd5dcdd);
+            
+        
+
+        circle_marker_89558412b62ead3e477f6526946bedb7.bindPopup(popup_f3fc7e3841d8f0232000bc2baf3d6d06)
+        ;
+
+        
+    
+    
+            feature_group_d802df0970a38127d29ca63c1e4ef26a.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_e0f5f67bf91b96acec08d6fa1e778669 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_a497a38928133353ef9dbf492001300f = L.circleMarker(
+                [35.5394, 129.3114],
+                {"bubblingMouseEvents": true, "color": "#ef4444", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#ef4444", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 24.05, "stroke": true, "weight": 2}
+            ).addTo(feature_group_e0f5f67bf91b96acec08d6fa1e778669);
+        
+    
+        var popup_968e4fcd138d4b63d00c5f8a737c0b96 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_8ac5eb660eb51bfedef8e10f59256b55 = $(`<div id="html_8ac5eb660eb51bfedef8e10f59256b55" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">울산</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-01-05</td>             </tr>                  <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">48.1%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">32.6%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.3%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_968e4fcd138d4b63d00c5f8a737c0b96.setContent(html_8ac5eb660eb51bfedef8e10f59256b55);
+            
+        
+
+        circle_marker_a497a38928133353ef9dbf492001300f.bindPopup(popup_968e4fcd138d4b63d00c5f8a737c0b96)
+        ;
+
+        
+    
+    
+            feature_group_e0f5f67bf91b96acec08d6fa1e778669.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_98d37d0ce5c6e52cae981a5b24f098a3 = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_7a2d0aefd06f9346a0c030c03160ff20 = L.circleMarker(
+                [36.4804, 127.289],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 25.1, "stroke": true, "weight": 2}
+            ).addTo(feature_group_98d37d0ce5c6e52cae981a5b24f098a3);
+        
+    
+        var popup_5cbc53d9ad0278482ee29c57ed90db80 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_084214780980db6ad9a810f8cdbba31a = $(`<div id="html_084214780980db6ad9a810f8cdbba31a" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">세종</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-01-05</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">50.2%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">30.5%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.3%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_5cbc53d9ad0278482ee29c57ed90db80.setContent(html_084214780980db6ad9a810f8cdbba31a);
+            
+        
+
+        circle_marker_7a2d0aefd06f9346a0c030c03160ff20.bindPopup(popup_5cbc53d9ad0278482ee29c57ed90db80)
+        ;
+
+        
+    
+    
+            feature_group_98d37d0ce5c6e52cae981a5b24f098a3.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var feature_group_6ab457536fb42336eeec375805e7762e = L.featureGroup(
+                {
+}
+            );
+        
+    
+            var circle_marker_2011dd689d3fd6f41d599ec6b13c5148 = L.circleMarker(
+                [37.2756, 127.0093],
+                {"bubblingMouseEvents": true, "color": "#3b82f6", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "#3b82f6", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 23.6, "stroke": true, "weight": 2}
+            ).addTo(feature_group_6ab457536fb42336eeec375805e7762e);
+        
+    
+        var popup_93f7f9ef541d1a4780b6ebdff38a00d8 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_d5cb5ffb071e94e7fbb33489fe184472 = $(`<div id="html_d5cb5ffb071e94e7fbb33489fe184472" style="width: 100.0%; height: 100.0%;">     <div style="font-family:'Malgun Gothic',sans-serif;width:280px;">         <h3 style="margin:5px 0;color:#333;">경기도</h3>         <hr style="margin:5px 0;">         <table style="width:100%;border-collapse:collapse;font-size:12px;">             <tr style="background:#f5f5f5;">                 <td style="padding:3px;"><strong>조사일</strong></td>                 <td style="padding:3px;text-align:right;">2026-02-02</td>             </tr>                  <tr>                 <td style="padding:3px;">김민수 (민주당)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#3b82f6;">47.2%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">이준호 (국민의힘)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#ef4444;">33.7%</strong></td>             </tr>                      <tr>                 <td style="padding:3px;">박영희 (기타)</td>                 <td style="padding:3px;text-align:right;"><strong style="color:#8b949e;">19.1%</strong></td>             </tr>                  </table>     </div>     </div>`)[0];
+                popup_93f7f9ef541d1a4780b6ebdff38a00d8.setContent(html_d5cb5ffb071e94e7fbb33489fe184472);
+            
+        
+
+        circle_marker_2011dd689d3fd6f41d599ec6b13c5148.bindPopup(popup_93f7f9ef541d1a4780b6ebdff38a00d8)
+        ;
+
+        
+    
+    
+            feature_group_6ab457536fb42336eeec375805e7762e.addTo(map_dd884509101feaec131ea5c914f0bc51);
+        
+    
+            var layer_control_33f4cd5948999b42bcb0220498546716_layers = {
+                base_layers : {
+                    "cartodbpositron" : tile_layer_661aeb08a2db029248109718354c5e2a,
+                },
+                overlays :  {
+                    "\ud83d\udccd \uc11c\uc6b8" : feature_group_76dba5b35a75a4b3ecfd76cb4d1c3bb7,
+                    "\ud83d\udccd \ubd80\uc0b0" : feature_group_fcad0165caddbf26edefc13e24842f5c,
+                    "\ud83d\udccd \ub300\uad6c" : feature_group_b9a86ce0142713992907b7733a5a6ee7,
+                    "\ud83d\udccd \uc778\ucc9c" : feature_group_2c3b7117b83d2a906460b252f58a1b5e,
+                    "\ud83d\udccd \uad11\uc8fc" : feature_group_a9b1f000d5a12c7711025392f7138136,
+                    "\ud83d\udccd \ub300\uc804" : feature_group_d802df0970a38127d29ca63c1e4ef26a,
+                    "\ud83d\udccd \uc6b8\uc0b0" : feature_group_e0f5f67bf91b96acec08d6fa1e778669,
+                    "\ud83d\udccd \uc138\uc885" : feature_group_98d37d0ce5c6e52cae981a5b24f098a3,
+                    "\ud83d\udccd \uacbd\uae30\ub3c4" : feature_group_6ab457536fb42336eeec375805e7762e,
+                },
+            };
+            let layer_control_33f4cd5948999b42bcb0220498546716 = L.control.layers(
+                layer_control_33f4cd5948999b42bcb0220498546716_layers.base_layers,
+                layer_control_33f4cd5948999b42bcb0220498546716_layers.overlays,
+                {
+  "position": "topright",
+  "collapsed": false,
+  "autoZIndex": true,
+}
+            ).addTo(map_dd884509101feaec131ea5c914f0bc51);
+
+        
+</script>
+</html>
