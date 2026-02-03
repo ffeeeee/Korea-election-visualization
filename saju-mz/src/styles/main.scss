@@ -1,0 +1,619 @@
+/* ============================================
+   Variables & Reset
+   ============================================ */
+$primary-color: #7c3aed;
+$secondary-color: #ec4899;
+$accent-color: #f59e0b;
+$dark-bg: #0f172a;
+$light-bg: #f8fafc;
+$card-bg: #ffffff;
+$text-dark: #1e293b;
+$text-light: #64748b;
+$border-color: #e2e8f0;
+
+$font-main: 'Noto Sans KR', sans-serif;
+$transition: all 0.3s ease;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: $font-main;
+  background-color: $light-bg;
+  color: $text-dark;
+  line-height: 1.6;
+}
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ============================================
+   Header & Navigation
+   ============================================ */
+.header {
+  background: $card-bg;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.nav {
+  display: flex;
+  gap: 40px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+
+.nav-link {
+  text-decoration: none;
+  color: $text-dark;
+  font-weight: 500;
+  transition: $transition;
+  position: relative;
+
+  &:hover,
+  &.active {
+    color: $primary-color;
+    &::after {
+      width: 100%;
+    }
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: $primary-color;
+    transition: width 0.3s ease;
+  }
+}
+
+.mobile-menu-btn {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+
+  @media (max-width: 768px) {
+    display: flex;
+  }
+
+  span {
+    width: 25px;
+    height: 3px;
+    background: $text-dark;
+    border-radius: 2px;
+    transition: $transition;
+  }
+}
+
+/* ============================================
+   Buttons
+   ============================================ */
+.btn {
+  padding: 12px 30px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: $transition;
+  font-family: $font-main;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  color: white;
+
+  &:hover {
+    filter: brightness(1.1);
+  }
+}
+
+.btn-secondary {
+  background: $border-color;
+  color: $text-dark;
+
+  &:hover {
+    background: darken($border-color, 10%);
+  }
+}
+
+.btn-lg {
+  padding: 15px 50px;
+  font-size: 18px;
+}
+
+.btn-block {
+  width: 100%;
+}
+
+.btn-back {
+  display: inline-block;
+  margin-bottom: 30px;
+  font-size: 14px;
+}
+
+/* ============================================
+   Hero Section
+   ============================================ */
+.hero {
+  padding: 100px 0;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+
+  .container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 40px;
+    }
+  }
+}
+
+.hero-content {
+  z-index: 2;
+}
+
+.hero-title {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @media (max-width: 768px) {
+    font-size: 36px;
+  }
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: $text-light;
+  margin-bottom: 40px;
+  line-height: 1.6;
+}
+
+.hero-visual {
+  position: relative;
+  height: 400px;
+
+  @media (max-width: 768px) {
+    height: 300px;
+  }
+}
+
+.floating-card {
+  position: absolute;
+  padding: 20px 30px;
+  background: $card-bg;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  font-weight: 600;
+  animation: float 3s ease-in-out infinite;
+
+  &.card-1 {
+    top: 20px;
+    left: 20px;
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    animation-delay: 0s;
+  }
+
+  &.card-2 {
+    top: 150px;
+    right: 40px;
+    background: linear-gradient(135deg, #fce7f3, #fbcfe8);
+    animation-delay: 0.5s;
+  }
+
+  &.card-3 {
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+    animation-delay: 1s;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* ============================================
+   Sections
+   ============================================ */
+.section-title {
+  font-size: 36px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 50px;
+  color: $text-dark;
+
+  @media (max-width: 768px) {
+    font-size: 28px;
+    margin-bottom: 30px;
+  }
+}
+
+/* ============================================
+   Saju Form Section
+   ============================================ */
+.saju-section {
+  padding: 80px 0;
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+}
+
+.saju-form-container {
+  max-width: 500px;
+  margin: 0 auto;
+  background: $card-bg;
+  padding: 50px;
+  border-radius: 16px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+
+  @media (max-width: 768px) {
+    padding: 30px;
+  }
+}
+
+.saju-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: $text-dark;
+    font-size: 14px;
+  }
+
+  input[type="date"],
+  input[type="time"],
+  input[type="text"] {
+    padding: 12px 16px;
+    border: 2px solid $border-color;
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: $font-main;
+    transition: $transition;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.1);
+    }
+  }
+}
+
+.radio-group {
+  display: flex;
+  gap: 30px;
+}
+
+input[type="radio"] {
+  display: none;
+
+  &:checked + .radio-label {
+    color: $primary-color;
+    border-color: $primary-color;
+    background: rgba(124, 58, 237, 0.05);
+  }
+}
+
+.radio-label {
+  padding: 10px 20px;
+  border: 2px solid $border-color;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: $transition;
+  text-align: center;
+  flex: 1;
+  font-weight: 500;
+}
+
+/* ============================================
+   Result Section
+   ============================================ */
+.result-section {
+  padding: 80px 0;
+  background: linear-gradient(135deg, #f8fafc, #f1f5f9);
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+}
+
+.result-header {
+  text-align: center;
+  margin-bottom: 60px;
+
+  @media (max-width: 768px) {
+    margin-bottom: 40px;
+  }
+}
+
+.result-title {
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  background: linear-gradient(135deg, $primary-color, $secondary-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+
+  @media (max-width: 768px) {
+    font-size: 32px;
+  }
+}
+
+.result-subtitle {
+  font-size: 18px;
+  color: $text-light;
+}
+
+.result-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 30px;
+  margin-bottom: 50px;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.result-card {
+  background: $card-bg;
+  padding: 40px;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transition: $transition;
+
+  @media (max-width: 768px) {
+    padding: 25px;
+  }
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+  }
+
+  &.romantic {
+    border-top: 4px solid $secondary-color;
+  }
+
+  &.wealth {
+    border-top: 4px solid $accent-color;
+  }
+
+  &.career {
+    border-top: 4px solid $primary-color;
+  }
+
+  &.health {
+    border-top: 4px solid #10b981;
+  }
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: $text-dark;
+}
+
+.card-content {
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid $border-color;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-weight: 600;
+    color: $text-light;
+  }
+
+  .value {
+    color: $text-dark;
+    font-weight: 500;
+  }
+}
+
+.analysis-text {
+  color: $text-light;
+  line-height: 1.8;
+}
+
+.result-actions {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+
+  .btn {
+    flex: 1;
+    @media (max-width: 768px) {
+      flex: unset;
+    }
+  }
+}
+
+/* ============================================
+   About Section
+   ============================================ */
+.about-section {
+  padding: 80px 0;
+
+  @media (max-width: 768px) {
+    padding: 60px 0;
+  }
+}
+
+.about-content {
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.about-text {
+  font-size: 17px;
+  line-height: 1.8;
+  color: $text-light;
+  margin-bottom: 30px;
+
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+.features-list {
+  list-style: none;
+
+  li {
+    padding: 12px 0;
+    padding-left: 10px;
+    font-size: 16px;
+    color: $text-dark;
+    font-weight: 500;
+  }
+}
+
+/* ============================================
+   Footer
+   ============================================ */
+.footer {
+  background: $dark-bg;
+  color: white;
+  padding: 30px 0;
+  text-align: center;
+  margin-top: 80px;
+
+  p {
+    font-size: 14px;
+    opacity: 0.8;
+  }
+}
+
+/* ============================================
+   Loading & Animation
+   ============================================ */
+.loading {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 3px solid rgba(124, 58, 237, 0.3);
+  border-radius: 50%;
+  border-top-color: $primary-color;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* ============================================
+   Responsive
+   ============================================ */
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 28px;
+  }
+
+  .hero-subtitle {
+    font-size: 16px;
+  }
+
+  .section-title {
+    font-size: 24px;
+  }
+
+  .btn-lg {
+    padding: 12px 30px;
+    font-size: 16px;
+  }
+}
