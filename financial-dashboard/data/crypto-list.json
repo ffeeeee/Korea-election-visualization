@@ -1,0 +1,172 @@
+{
+  "lastUpdate": "2026-02-03T23:45:00Z",
+  "market": "crypto",
+  "currency": "USD",
+  "cryptos": [
+    {
+      "id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "price": 98425.50,
+      "change": 2.45,
+      "volume24h": 45200000000,
+      "marketCap": 1950000000000,
+      "high": 99850.00,
+      "low": 96200.00
+    },
+    {
+      "id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "price": 3825.32,
+      "change": 3.15,
+      "volume24h": 21500000000,
+      "marketCap": 460000000000,
+      "high": 3950.00,
+      "low": 3720.00
+    },
+    {
+      "id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "price": 185.42,
+      "change": 4.82,
+      "volume24h": 3200000000,
+      "marketCap": 94000000000,
+      "high": 190.00,
+      "low": 175.00
+    },
+    {
+      "id": "ripple",
+      "name": "Ripple",
+      "symbol": "XRP",
+      "price": 2.58,
+      "change": -1.25,
+      "volume24h": 2100000000,
+      "marketCap": 145000000000,
+      "high": 2.68,
+      "low": 2.48
+    },
+    {
+      "id": "cardano",
+      "name": "Cardano",
+      "symbol": "ADA",
+      "price": 1.15,
+      "change": 2.34,
+      "volume24h": 1500000000,
+      "marketCap": 41000000000,
+      "high": 1.18,
+      "low": 1.10
+    },
+    {
+      "id": "polkadot",
+      "name": "Polkadot",
+      "symbol": "DOT",
+      "price": 8.42,
+      "change": 1.85,
+      "volume24h": 850000000,
+      "marketCap": 12500000000,
+      "high": 8.65,
+      "low": 8.10
+    },
+    {
+      "id": "dogecoin",
+      "name": "Dogecoin",
+      "symbol": "DOGE",
+      "price": 0.32,
+      "change": 5.25,
+      "volume24h": 2800000000,
+      "marketCap": 47000000000,
+      "high": 0.34,
+      "low": 0.30
+    },
+    {
+      "id": "litecoin",
+      "name": "Litecoin",
+      "symbol": "LTC",
+      "price": 185.75,
+      "change": -0.85,
+      "volume24h": 1200000000,
+      "marketCap": 28000000000,
+      "high": 188.50,
+      "low": 182.30
+    },
+    {
+      "id": "polygon",
+      "name": "Polygon",
+      "symbol": "MATIC",
+      "price": 0.95,
+      "change": 3.45,
+      "volume24h": 650000000,
+      "marketCap": 11000000000,
+      "high": 0.98,
+      "low": 0.91
+    },
+    {
+      "id": "uniswap",
+      "name": "Uniswap",
+      "symbol": "UNI",
+      "price": 12.45,
+      "change": 2.18,
+      "volume24h": 450000000,
+      "marketCap": 9500000000,
+      "high": 12.80,
+      "low": 12.10
+    },
+    {
+      "id": "chainlink",
+      "name": "Chainlink",
+      "symbol": "LINK",
+      "price": 28.35,
+      "change": 1.92,
+      "volume24h": 650000000,
+      "marketCap": 13500000000,
+      "high": 29.20,
+      "low": 27.50
+    },
+    {
+      "id": "bitcoin-cash",
+      "name": "Bitcoin Cash",
+      "symbol": "BCH",
+      "price": 425.82,
+      "change": -2.15,
+      "volume24h": 520000000,
+      "marketCap": 8200000000,
+      "high": 435.00,
+      "low": 415.00
+    },
+    {
+      "id": "eos",
+      "name": "EOS",
+      "symbol": "EOS",
+      "price": 1.28,
+      "change": 0.85,
+      "volume24h": 280000000,
+      "marketCap": 1200000000,
+      "high": 1.32,
+      "low": 1.24
+    },
+    {
+      "id": "monero",
+      "name": "Monero",
+      "symbol": "XMR",
+      "price": 185.42,
+      "change": 4.32,
+      "volume24h": 180000000,
+      "marketCap": 3100000000,
+      "high": 188.50,
+      "low": 176.20
+    },
+    {
+      "id": "stellar",
+      "name": "Stellar",
+      "symbol": "XLM",
+      "price": 0.42,
+      "change": 1.15,
+      "volume24h": 210000000,
+      "marketCap": 1400000000,
+      "high": 0.43,
+      "low": 0.40
+    }
+  ]
+}

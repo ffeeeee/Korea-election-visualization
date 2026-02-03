@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>금융 대시보드 - 한미 주식 & 크립토</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body data-theme="light">
+    <div class="container">
+        <!-- 헤더 -->
+        <header class="header">
+            <div class="header-content">
+                <h1 class="logo">💹 Financial Dashboard</h1>
+                <div class="header-controls">
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="theme-toggle" class="checkbox">
+                        <span class="slider"></span>
+                    </label>
+                    <span class="theme-label">Dark Mode</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content">
+            <!-- 시장 탭 -->
+            <div class="market-tabs">
+                <button class="tab-btn active" data-market="korean">
+                    🇰🇷 한국 주식
+                </button>
+                <button class="tab-btn" data-market="us">
+                    🇺🇸 미국 주식
+                </button>
+                <button class="tab-btn" data-market="crypto">
+                    ₿ 크립토
+                </button>
+            </div>
+
+            <!-- 스크리너 섹션 -->
+            <section class="screener-section">
+                <!-- 검색 및 필터 -->
+                <div class="screener-controls">
+                    <div class="search-box">
+                        <input
+                            type="text"
+                            id="search-input"
+                            placeholder="종목명 또는 심볼 검색..."
+                            class="search-input"
+                        >
+                    </div>
+                    <div class="filter-controls">
+                        <label class="checkbox-label">
+                            <input type="checkbox" id="auto-refresh" checked>
+                            자동 새로고침 (5분)
+                        </label>
+                        <button id="refresh-btn" class="btn btn-primary">
+                            🔄 새로고침
+                        </button>
+                    </div>
+                </div>
+
+                <!-- 종목 테이블 -->
+                <div class="table-wrapper">
+                    <table class="stocks-table">
+                        <thead>
+                            <tr>
+                                <th class="col-name">종목명</th>
+                                <th class="col-symbol">심볼</th>
+                                <th class="col-price">현재가</th>
+                                <th class="col-change">등락률</th>
+                                <th class="col-volume">거래량</th>
+                                <th class="col-market-cap">시가총액</th>
+                            </tr>
+                        </thead>
+                        <tbody id="stocks-tbody">
+                            <!-- 동적 렌더링 -->
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- 로딩 상태 -->
+                <div id="loading-spinner" class="spinner hidden">
+                    <div class="spinner-circle"></div>
+                    <p>데이터 로딩 중...</p>
+                </div>
+
+                <!-- 에러 메시지 -->
+                <div id="error-message" class="error-message hidden"></div>
+            </section>
+        </main>
+
+        <!-- 차트 모달 -->
+        <div id="chart-modal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close">&times;</button>
+                <div class="chart-header">
+                    <h2 id="chart-title">종목명</h2>
+                    <div class="chart-tabs">
+                        <button class="chart-tab-btn active" data-period="1D">1D</button>
+                        <button class="chart-tab-btn" data-period="1W">1W</button>
+                        <button class="chart-tab-btn" data-period="1M">1M</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="detail-chart"></canvas>
+                </div>
+                <div class="chart-info">
+                    <div class="info-item">
+                        <span class="info-label">현재가</span>
+                        <span id="info-price" class="info-value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">고가</span>
+                        <span id="info-high" class="info-value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">저가</span>
+                        <span id="info-low" class="info-value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">거래량</span>
+                        <span id="info-volume" class="info-value">-</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">시가총액</span>
+                        <span id="info-market-cap" class="info-value">-</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 오버레이 -->
+        <div id="modal-overlay" class="modal-overlay hidden"></div>
+    </div>
+
+    <!-- 스크립트 -->
+    <script src="js/data.js"></script>
+    <script src="js/api-manager.js"></script>
+    <script src="js/screener.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
