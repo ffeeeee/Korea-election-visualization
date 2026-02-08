@@ -14,7 +14,6 @@ class App {
   init() {
     this.setupEventListeners();
     this.setupNavigation();
-    this.loadStoredData();
   }
 
   setupEventListeners() {
@@ -47,6 +46,12 @@ class App {
     if (shareBtn) {
       shareBtn.addEventListener('click', () => this.shareResult());
     }
+
+    // 양력/음력 토글 → 윤달 체크박스 show/hide
+    const calendarRadios = document.querySelectorAll('input[name="calendarType"]');
+    calendarRadios.forEach(radio => {
+      radio.addEventListener('change', () => this.toggleLeapMonth());
+    });
   }
 
   setupNavigation() {
@@ -59,75 +64,92 @@ class App {
     });
   }
 
-  loadStoredData() {
-    const lastSaju = this.storageManager.getLastSaju();
-    if (lastSaju) {
-      this.displayResult(lastSaju);
+  toggleLeapMonth() {
+    const calendarType = document.querySelector('input[name="calendarType"]:checked').value;
+    const leapMonthWrap = document.getElementById('leapMonthWrap');
+    if (calendarType === 'lunar') {
+      leapMonthWrap.classList.remove('hidden');
+    } else {
+      leapMonthWrap.classList.add('hidden');
+      document.getElementById('isLeapMonth').checked = false;
     }
   }
 
   async handleFormSubmit(e) {
     e.preventDefault();
 
-    const formData = {
-      birthDate: document.getElementById('birthDate').value,
-      birthTime: document.getElementById('birthTime').value,
-      birthPlace: document.getElementById('birthPlace').value,
-      gender: document.querySelector('input[name="gender"]:checked').value
-    };
-
-    // 데이터 유효성 검사
-    if (!this.validateFormData(formData)) {
-      alert('모든 필드를 입력해주세요');
+    const genderEl = document.querySelector('input[name="gender"]:checked');
+    if (!genderEl) {
+      alert('성별을 선택해주세요');
       return;
     }
 
-    // 로딩 상태 표시
+    const formData = {
+      name: document.getElementById('userName').value.trim(),
+      birthDate: document.getElementById('birthDate').value,
+      calendarType: document.querySelector('input[name="calendarType"]:checked').value,
+      isLeapMonth: document.getElementById('isLeapMonth').checked,
+      birthSijin: document.getElementById('birthSijin').value,
+      gender: genderEl.value
+    };
+
+    if (!this.validateFormData(formData)) {
+      alert('이름과 생년월일을 입력해주세요');
+      return;
+    }
+
     this.uiManager.showLoading();
 
     try {
-      // 사주 분석
       const result = this.sajuAnalyzer.analyze(formData);
-
-      // 결과 저장
       this.storageManager.saveSaju(result);
-
-      // 결과 표시
       this.displayResult(result);
-
-      // 폼 초기화
       document.getElementById('sajuForm').reset();
+      // 양력 기본 선택 복원
+      document.getElementById('solar').checked = true;
+      this.toggleLeapMonth();
     } catch (error) {
       console.error('사주 분석 실패:', error);
-      alert('사주 분석 중 오류가 발생했습니다');
+      alert('사주 분석 중 오류가 발생했습니다: ' + error.message);
     } finally {
       this.uiManager.hideLoading();
     }
   }
 
   validateFormData(data) {
-    return data.birthDate && data.birthTime && data.birthPlace && data.gender;
+    return data.name && data.birthDate && data.gender;
   }
 
   displayResult(result) {
-    // 결과 섹션 표시
     const resultSection = document.getElementById('result');
     resultSection.classList.remove('hidden');
 
-    // 기본 정보 채우기
-    document.getElementById('resultName').textContent = result.name || '당신의 사주';
-    document.getElementById('resultInfo').textContent = result.birthDate;
+    // 헤더
+    document.getElementById('resultName').textContent = `${result.name}님의 사주 분석`;
+    document.getElementById('resultInfo').textContent = `${result.birthDate} (${result.gender === 'male' ? '남' : '여'}) | ${result.ganji}`;
 
-    document.getElementById('basicBirthDate').textContent = result.birthDate;
-    document.getElementById('basicGanji').textContent = result.ganji;
-    document.getElementById('basicWuxing').textContent = result.wuxing;
+    // 사주 명식 차트
+    this.renderSajuChart(result);
 
-    // 분석 결과 채우기
-    document.getElementById('personalityAnalysis').textContent = result.analysis.personality;
-    document.getElementById('romanticFortune').textContent = result.analysis.romantic;
-    document.getElementById('wealthFortune').textContent = result.analysis.wealth;
-    document.getElementById('careerFortune').textContent = result.analysis.career;
-    document.getElementById('healthFortune').textContent = result.analysis.health;
+    // 11개 분석 섹션 (innerHTML로 HTML 텍스트 지원)
+    const sections = {
+      'analysisBasic': result.analysis.basicAnalysis,
+      'analysisElement': result.analysis.elementAnalysis,
+      'analysisSipsin': result.analysis.sipsinAnalysis,
+      'analysisDaewoon': result.analysis.daewoonAnalysis,
+      'analysisPersonality': result.analysis.personality,
+      'analysisRomance': result.analysis.romance,
+      'analysisWealth': result.analysis.wealth,
+      'analysisCareer': result.analysis.career,
+      'analysisHealth': result.analysis.health,
+      'analysisYearFortune': result.analysis.yearFortune,
+      'analysisAdvice': result.analysis.advice
+    };
+
+    Object.entries(sections).forEach(([id, html]) => {
+      const el = document.getElementById(id);
+      if (el) el.innerHTML = html;
+    });
 
     // 스크롤
     setTimeout(() => {
@@ -135,9 +157,72 @@ class App {
     }, 300);
   }
 
+  renderSajuChart(result) {
+    const chart = document.getElementById('sajuChart');
+    const { pillars } = result;
+    const pillarOrder = [
+      { key: 'hour', label: '시주' },
+      { key: 'day', label: '일주' },
+      { key: 'month', label: '월주' },
+      { key: 'year', label: '년주' }
+    ];
+
+    const elementColors = {
+      '목': '#22c55e', '화': '#ef4444', '토': '#eab308',
+      '금': '#a1a1aa', '수': '#3b82f6'
+    };
+
+    let html = '<div class="saju-chart-grid">';
+
+    // 라벨 행
+    html += '<div class="chart-row chart-labels">';
+    pillarOrder.forEach(p => {
+      html += `<div class="chart-cell">${p.label}</div>`;
+    });
+    html += '</div>';
+
+    // 천간 행
+    html += '<div class="chart-row chart-stems">';
+    pillarOrder.forEach(p => {
+      const pillar = pillars[p.key];
+      if (pillar) {
+        const color = elementColors[pillar.element] || '#666';
+        html += `<div class="chart-cell" style="color: ${color}">
+          <span class="chart-char">${pillar.stem}</span>
+          <span class="chart-element">${pillar.element}</span>
+        </div>`;
+      } else {
+        html += `<div class="chart-cell empty"><span class="chart-char">-</span></div>`;
+      }
+    });
+    html += '</div>';
+
+    // 지지 행
+    html += '<div class="chart-row chart-branches">';
+    pillarOrder.forEach(p => {
+      const pillar = pillars[p.key];
+      if (pillar) {
+        const color = elementColors[pillar.branchElement] || '#666';
+        html += `<div class="chart-cell" style="color: ${color}">
+          <span class="chart-char">${pillar.branch}</span>
+          <span class="chart-element">${pillar.branchElement}</span>
+        </div>`;
+      } else {
+        html += `<div class="chart-cell empty"><span class="chart-char">-</span></div>`;
+      }
+    });
+    html += '</div>';
+
+    html += '</div>';
+
+    chart.innerHTML = html;
+  }
+
   resetForm() {
     document.getElementById('result').classList.add('hidden');
     document.getElementById('sajuForm').reset();
+    document.getElementById('solar').checked = true;
+    this.toggleLeapMonth();
     this.scrollToSaju();
   }
 
@@ -157,14 +242,12 @@ class App {
         url: window.location.href
       }).catch(err => console.log('공유 실패:', err));
     } else {
-      // Fallback: 클립보드에 복사
       navigator.clipboard.writeText(shareText);
       alert('결과 텍스트가 복사되었습니다');
     }
   }
 }
 
-// 앱 초기화
 document.addEventListener('DOMContentLoaded', () => {
   new App();
 });

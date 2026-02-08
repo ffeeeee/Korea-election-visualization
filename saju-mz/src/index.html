@@ -36,7 +36,7 @@
         <div class="container">
           <div class="hero-content">
             <h2 class="hero-title">당신의 운명을 만나다</h2>
-            <p class="hero-subtitle">AI가 읽어주는 당신의 사주, MZ세대를 위한 새로운 경험</p>
+            <p class="hero-subtitle">30년 경력 사주풀이 전문가 수준의 상세한 분석으로<br>당신의 사주를 풀어드립니다</p>
             <button class="btn btn-primary btn-lg" id="startBtn">사주 보기</button>
           </div>
           <div class="hero-visual">
@@ -55,22 +55,52 @@
           <div class="saju-form-container">
             <form id="sajuForm" class="saju-form">
               <div class="form-group">
+                <label for="userName">이름</label>
+                <input type="text" id="userName" name="userName" placeholder="이름을 입력하세요" required>
+              </div>
+
+              <div class="form-group">
                 <label for="birthDate">생년월일</label>
                 <input type="date" id="birthDate" name="birthDate" required>
               </div>
 
               <div class="form-group">
-                <label for="birthTime">출생 시간 (시:분)</label>
-                <input type="time" id="birthTime" name="birthTime" required>
+                <label>양력 / 음력</label>
+                <div class="radio-group">
+                  <input type="radio" id="solar" name="calendarType" value="solar" checked>
+                  <label for="solar" class="radio-label">양력</label>
+                  <input type="radio" id="lunar" name="calendarType" value="lunar">
+                  <label for="lunar" class="radio-label">음력</label>
+                </div>
+                <div id="leapMonthWrap" class="leap-month-wrap hidden">
+                  <label class="checkbox-label">
+                    <input type="checkbox" id="isLeapMonth" name="isLeapMonth">
+                    <span>윤달</span>
+                  </label>
+                </div>
               </div>
 
               <div class="form-group">
-                <label for="birthPlace">출생지</label>
-                <input type="text" id="birthPlace" name="birthPlace" placeholder="예: 서울" required>
+                <label for="birthSijin">태어난 시</label>
+                <select id="birthSijin" name="birthSijin">
+                  <option value="unknown">모름</option>
+                  <option value="ja">자시 (23:00~01:00)</option>
+                  <option value="chuk">축시 (01:00~03:00)</option>
+                  <option value="in">인시 (03:00~05:00)</option>
+                  <option value="myo">묘시 (05:00~07:00)</option>
+                  <option value="jin">진시 (07:00~09:00)</option>
+                  <option value="sa">사시 (09:00~11:00)</option>
+                  <option value="oh">오시 (11:00~13:00)</option>
+                  <option value="mi">미시 (13:00~15:00)</option>
+                  <option value="shin">신시 (15:00~17:00)</option>
+                  <option value="yu">유시 (17:00~19:00)</option>
+                  <option value="sul">술시 (19:00~21:00)</option>
+                  <option value="hae">해시 (21:00~23:00)</option>
+                </select>
               </div>
 
               <div class="form-group">
-                <label for="gender">성별</label>
+                <label>성별</label>
                 <div class="radio-group">
                   <input type="radio" id="male" name="gender" value="male">
                   <label for="male" class="radio-label">남성</label>
@@ -96,64 +126,64 @@
               <p class="result-subtitle" id="resultInfo"></p>
             </div>
 
+            <!-- 사주 명식 차트 -->
+            <div class="saju-chart" id="sajuChart"></div>
+
+            <!-- 11개 결과 카드 -->
             <div class="result-cards">
-              <!-- 기본 사주 정보 -->
-              <div class="result-card">
-                <h3 class="card-title">기본 정보</h3>
-                <div class="card-content">
-                  <div class="info-row">
-                    <span class="label">생년월일</span>
-                    <span class="value" id="basicBirthDate"></span>
-                  </div>
-                  <div class="info-row">
-                    <span class="label">십간십이지</span>
-                    <span class="value" id="basicGanji"></span>
-                  </div>
-                  <div class="info-row">
-                    <span class="label">오행</span>
-                    <span class="value" id="basicWuxing"></span>
-                  </div>
-                </div>
+              <div class="result-card basic-analysis">
+                <h3 class="card-title">📋 사주팔자 기본 분석</h3>
+                <div class="card-content" id="analysisBasic"></div>
               </div>
 
-              <!-- 성격 분석 -->
-              <div class="result-card">
-                <h3 class="card-title">성격 분석</h3>
-                <div class="card-content">
-                  <p id="personalityAnalysis" class="analysis-text"></p>
-                </div>
+              <div class="result-card element-analysis">
+                <h3 class="card-title">🔥 오행 분석</h3>
+                <div class="card-content" id="analysisElement"></div>
               </div>
 
-              <!-- 연애운 -->
+              <div class="result-card sipsin-analysis">
+                <h3 class="card-title">⚖️ 십신 분석</h3>
+                <div class="card-content" id="analysisSipsin"></div>
+              </div>
+
+              <div class="result-card daewoon-analysis">
+                <h3 class="card-title">🌊 대운 흐름</h3>
+                <div class="card-content" id="analysisDaewoon"></div>
+              </div>
+
+              <div class="result-card personality">
+                <h3 class="card-title">🧠 성격 분석</h3>
+                <div class="card-content" id="analysisPersonality"></div>
+              </div>
+
               <div class="result-card romantic">
                 <h3 class="card-title">💕 연애운</h3>
-                <div class="card-content">
-                  <p id="romanticFortune" class="analysis-text"></p>
-                </div>
+                <div class="card-content" id="analysisRomance"></div>
               </div>
 
-              <!-- 재운 -->
               <div class="result-card wealth">
-                <h3 class="card-title">💰 재운</h3>
-                <div class="card-content">
-                  <p id="wealthFortune" class="analysis-text"></p>
-                </div>
+                <h3 class="card-title">💰 재물운</h3>
+                <div class="card-content" id="analysisWealth"></div>
               </div>
 
-              <!-- 직업운 -->
               <div class="result-card career">
                 <h3 class="card-title">💼 직업운</h3>
-                <div class="card-content">
-                  <p id="careerFortune" class="analysis-text"></p>
-                </div>
+                <div class="card-content" id="analysisCareer"></div>
               </div>
 
-              <!-- 건강운 -->
               <div class="result-card health">
                 <h3 class="card-title">🏥 건강운</h3>
-                <div class="card-content">
-                  <p id="healthFortune" class="analysis-text"></p>
-                </div>
+                <div class="card-content" id="analysisHealth"></div>
+              </div>
+
+              <div class="result-card year-fortune">
+                <h3 class="card-title">🐎 2026년 운세 (병오년)</h3>
+                <div class="card-content" id="analysisYearFortune"></div>
+              </div>
+
+              <div class="result-card advice">
+                <h3 class="card-title">🙏 종합 조언</h3>
+                <div class="card-content" id="analysisAdvice"></div>
               </div>
             </div>
 
@@ -172,12 +202,13 @@
           <div class="about-content">
             <div class="about-text">
               <p>사주 MZ는 MZ세대를 위해 만들어진 새로운 형태의 운세 서비스입니다.</p>
-              <p>전통적인 사주의 지혜를 현대적으로 해석하여 제공합니다.</p>
+              <p>전통적인 사주의 지혜를 현대적으로 해석하여, 30분 분량의 상세한 분석을 제공합니다.</p>
               <ul class="features-list">
-                <li>✨ AI 기반의 정확한 사주 분석</li>
-                <li>🎨 세련된 디자인과 인터페이스</li>
+                <li>✨ 정확한 만세력 기반 사주팔자 계산</li>
+                <li>📊 십신(十神) 분석으로 보는 인생 구조</li>
+                <li>🌊 대운(大運) 흐름 분석</li>
+                <li>🔮 11개 분야 상세 분석 (약 4,500단어)</li>
                 <li>📱 모바일 최적화</li>
-                <li>🚀 빠른 결과 도출</li>
               </ul>
             </div>
           </div>
@@ -188,7 +219,7 @@
     <!-- 푸터 -->
     <footer class="footer">
       <div class="container">
-        <p>&copy; 2024 사주 MZ. All rights reserved.</p>
+        <p>&copy; 2026 사주 MZ. All rights reserved.</p>
       </div>
     </footer>
   </div>

@@ -9,7 +9,7 @@ const APIManager = (() => {
         // Alpha Vantage (미국 주식 & 크립토)
         alphaVantage: {
             baseUrl: 'https://www.alphavantage.co/query',
-            apiKey: 'demo' // 프로덕션에서는 실제 키 필요
+            apiKey: 'EAVAJQQX3KTM7KCE'
         },
         // CoinGecko (크립토, 인증 불필요)
         coinGecko: {
@@ -69,6 +69,33 @@ const APIManager = (() => {
                 return null; // null이면 Mock 데이터 사용
             } catch (error) {
                 return handleError(error, 'Yahoo Finance');
+            }
+        },
+
+        /**
+         * Alpha Vantage 글로벌 데이터 (현재 가격)
+         */
+        async getAlphaVantageGlobal(symbol) {
+            try {
+                const { baseUrl, apiKey } = CONFIG.alphaVantage;
+                const url = `${baseUrl}?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${apiKey}`;
+
+                const response = await retryFetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+
+                const data = await response.json();
+
+                // API 에러 확인
+                if (data.Note || data['Error Message']) {
+                    console.warn('Alpha Vantage API 제한:', data.Note || data['Error Message']);
+                    return null;
+                }
+
+                return data;
+            } catch (error) {
+                return handleError(error, 'Alpha Vantage Global');
             }
         },
 

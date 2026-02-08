@@ -10,7 +10,75 @@ const ChartUI = (() => {
     let currentPeriod = '1D';
 
     /**
-     * Mock 차트 데이터 생성 (실제는 API에서 호출)
+     * 차트 데이터 로드 (API 또는 Mock)
+     */
+    const loadChartData = async (stock, period) => {
+        // API에서 실제 데이터 시도
+        const apiData = await fetchAPIChartData(stock, period);
+        if (apiData && apiData.prices.length > 0) {
+            return apiData;
+        }
+
+        // 폴백: Mock 데이터 생성
+        return generateMockChartData(stock, period);
+    };
+
+    /**
+     * API에서 차트 데이터 조회
+     */
+    const fetchAPIChartData = async (stock, period) => {
+        try {
+            if (currentMarket === 'crypto') {
+                // CoinGecko에서 크립토 히스토리 조회
+                const days = period === '1D' ? 1 : period === '1W' ? 7 : 30;
+                const coinId = stock.id || stock.symbol.toLowerCase();
+                const data = await APIManager.getCoinGeckoHistory(coinId, days);
+
+                if (data && data.prices) {
+                    const labels = [];
+                    const prices = [];
+
+                    data.prices.forEach((point) => {
+                        const date = new Date(point[0]);
+                        if (period === '1D') {
+                            labels.push(date.toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit' }));
+                        } else {
+                            labels.push(date.toLocaleDateString('ko-KR', { month: '2-digit', day: '2-digit' }));
+                        }
+                        prices.push(point[1]);
+                    });
+
+                    return { labels, prices, volumes: [] };
+                }
+            } else if (currentMarket === 'us') {
+                // Alpha Vantage에서 미국 주식 히스토리 조회
+                const interval = period === '1D' ? 'intraday' : 'daily';
+                const apiData = await APIManager.getAlphaVantageData(stock.symbol, interval);
+
+                if (apiData && (apiData['Time Series (Daily)'] || apiData['Time Series (5min)'])) {
+                    const timeSeries = apiData['Time Series (Daily)'] || apiData['Time Series (5min)'];
+                    const entries = Object.entries(timeSeries).slice(0, period === '1D' ? 24 : period === '1W' ? 7 : 30);
+
+                    const labels = [];
+                    const prices = [];
+
+                    entries.reverse().forEach(([timestamp, data]) => {
+                        labels.push(timestamp.split(' ')[0]);
+                        prices.push(parseFloat(data['4. close']) || 0);
+                    });
+
+                    return { labels, prices, volumes: [] };
+                }
+            }
+        } catch (error) {
+            console.warn('차트 API 데이터 로드 실패:', error);
+        }
+
+        return null;
+    };
+
+    /**
+     * Mock 차트 데이터 생성 (폴백용)
      */
     const generateMockChartData = (stock, period) => {
         const dataPoints = period === '1D' ? 24 : period === '1W' ? 7 : 30;
@@ -48,13 +116,13 @@ const ChartUI = (() => {
     };
 
     /**
-     * 차트 초기화
+     * 차트 초기화 (비동기)
      */
-    const initChart = (stock, period) => {
+    const initChart = async (stock, period) => {
         const canvas = document.getElementById('detail-chart');
         if (!canvas) return;
 
-        const data = generateMockChartData(stock, period);
+        const data = await loadChartData(stock, period);
 
         // 기존 차트 제거
         if (chartInstance) {
@@ -227,7 +295,7 @@ const ChartUI = (() => {
             // 차트 기간 탭
             const chartTabs = document.querySelectorAll('.chart-tab-btn');
             chartTabs.forEach(tab => {
-                tab.addEventListener('click', (e) => {
+                tab.addEventListener('click', async (e) => {
                     // 활성 탭 변경
                     chartTabs.forEach(t => t.classList.remove('active'));
                     e.target.classList.add('active');
@@ -235,7 +303,7 @@ const ChartUI = (() => {
                     // 차트 업데이트
                     currentPeriod = e.target.dataset.period;
                     if (currentStock) {
-                        initChart(currentStock, currentPeriod);
+                        await initChart(currentStock, currentPeriod);
                     }
                 });
             });
@@ -244,7 +312,7 @@ const ChartUI = (() => {
         /**
          * 모달 표시
          */
-        showModal(stock, market) {
+        async showModal(stock, market) {
             currentStock = stock;
             currentMarket = market;
             currentPeriod = '1D';
@@ -256,7 +324,7 @@ const ChartUI = (() => {
             updateInfo(stock);
 
             // 차트 렌더링
-            initChart(stock, '1D');
+            await initChart(stock, '1D');
 
             // 차트 탭 초기화
             const chartTabs = document.querySelectorAll('.chart-tab-btn');

@@ -7,6 +7,12 @@ const menuData = {
     fast: ['버거', '치킨', '피자', '핫도그', '감자튀김', '라면', '닭볶이', '김밥', '컵라면', '쌍둥이']
 };
 
+// 랜덤 색상 생성 함수
+function getRandomColor() {
+    const colors = ['#FF6B6B', '#4ECDC4', '#45B7D1', '#FFA07A', '#98D8C8', '#F7DC6F', '#BB8FCE', '#85C1E2'];
+    return colors[Math.floor(Math.random() * colors.length)];
+}
+
 // 카테고리별 추천 메뉴 반환
 function getRecommendedMenu(category) {
     if (category === '' || !menuData[category]) {

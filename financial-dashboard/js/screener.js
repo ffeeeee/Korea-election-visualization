@@ -75,12 +75,12 @@ const ScreenerUI = (() => {
 
         // 행 클릭 이벤트
         tbody.querySelectorAll('.stock-row').forEach(row => {
-            row.addEventListener('click', () => {
+            row.addEventListener('click', async () => {
                 const symbol = row.dataset.symbol;
                 const market = row.dataset.market;
                 const stock = currentStocks.find(s => s.symbol === symbol);
                 if (stock) {
-                    ChartUI.showModal(stock, market);
+                    await ChartUI.showModal(stock, market);
                 }
             });
         });
@@ -155,6 +155,7 @@ const ScreenerUI = (() => {
             if (query) {
                 result = DataManager.searchStocks(result, query);
             }
+            console.log('query', query, result.length);
 
             // 정렬
             result = DataManager.sortStocks(result, sortConfig.field, sortConfig.ascending);

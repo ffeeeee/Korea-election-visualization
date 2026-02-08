@@ -8,12 +8,17 @@
     "build": "webpack --mode production",
     "start": "http-server dist"
   },
-  "keywords": ["saju", "fortune", "astrology"],
+  "keywords": [
+    "saju",
+    "fortune",
+    "astrology"
+  ],
   "author": "",
   "license": "MIT",
   "dependencies": {
     "axios": "^1.6.0",
     "gsap": "^3.12.2",
+    "korean-lunar-calendar": "^0.3.6",
     "swiper": "^9.4.0"
   },
   "devDependencies": {

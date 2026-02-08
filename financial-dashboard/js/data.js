@@ -68,7 +68,12 @@ const DataManager = (() => {
         } else if (market === 'us') {
             return rawData.stocks || [];
         } else if (market === 'crypto') {
-            return rawData.cryptos || [];
+            // 크립토는 volume24h 필드명 통일
+            const cryptos = rawData.cryptos || [];
+            return cryptos.map(c => ({
+                ...c,
+                volume24h: c.volume24h || c.volume || 0
+            }));
         }
         return [];
     };
@@ -101,7 +106,7 @@ const DataManager = (() => {
      */
     return {
         /**
-         * 시장 데이터 로드 (캐시 우선)
+         * 시장 데이터 로드 (캐시 우선, API 폴백)
          */
         async loadMarketData(market) {
             // 캐시 확인
@@ -111,14 +116,142 @@ const DataManager = (() => {
                 return cached;
             }
 
-            // JSON에서 로드
-            console.log(`JSON에서 로드: ${market}`);
-            const data = await loadFromJSON(market);
+            try {
+                let data = [];
 
-            // 캐시에 저장
-            saveToCache(market, data);
+                if (market === 'korean') {
+                    // 한국 주식: JSON 파일 사용
+                    console.log(`JSON에서 로드: ${market}`);
+                    data = await loadFromJSON(market);
+                } else if (market === 'us') {
+                    // 미국 주식: Alpha Vantage API 시도 -> JSON 폴백
+                    console.log(`Alpha Vantage API에서 로드: ${market}`);
+                    data = await this.loadUSStocksFromAPI();
+                    if (!data || data.length === 0) {
+                        console.log(`API 실패, JSON에서 폴백: ${market}`);
+                        data = await loadFromJSON(market);
+                    }
+                } else if (market === 'crypto') {
+                    // 크립토: CoinGecko API 시도 -> JSON 폴백
+                    console.log(`CoinGecko API에서 로드: ${market}`);
+                    data = await this.loadCryptoFromAPI();
+                    if (!data || data.length === 0) {
+                        console.log(`API 실패, JSON에서 폴백: ${market}`);
+                        data = await loadFromJSON(market);
+                    }
+                } else {
+                    throw new Error(`알 수 없는 시장: ${market}`);\n                }
 
-            return data;
+                // 캐시에 저장
+                if (data && data.length > 0) {
+                    saveToCache(market, data);
+                }
+
+                return data;
+            } catch (error) {
+                console.error(`시장 데이터 로드 실패 (${market}):`, error);
+                // 최종 폴백: JSON
+                try {
+                    console.log(`최종 폴백: JSON에서 로드 (${market})`);
+                    return await loadFromJSON(market);
+                } catch (fallbackError) {
+                    console.error(`JSON 폴백도 실패 (${market}):`, fallbackError);
+                    throw new Error(`${market} 데이터를 로드할 수 없습니다.`);
+                }
+            }
+        },
+
+        /**
+         * Alpha Vantage에서 미국 주식 로드
+         */
+        async loadUSStocksFromAPI() {
+            const symbols = ['AAPL', 'MSFT', 'GOOGL', 'AMZN', 'NVDA', 'TSLA'];
+            const stocks = [];
+
+            for (const symbol of symbols) {
+                try {
+                    const globalData = await APIManager.getAlphaVantageGlobal(symbol);
+                    if (globalData && globalData.data) {
+                        const info = globalData.data;
+                        stocks.push({
+                            id: symbol,
+                            name: info['01. symbol'] || symbol,
+                            symbol: info['01. symbol'] || symbol,
+                            price: parseFloat(info['05. price']) || 0,
+                            change: parseFloat(info['09. change percent']) || 0,
+                            volume: parseInt(info['06. volume']) || 0,
+                            marketCap: 0,
+                            high: parseFloat(info['03. high']) || 0,
+                            low: parseFloat(info['04. low']) || 0
+                        });
+                    }
+                } catch (error) {
+                    console.warn(`${symbol} 로드 실패:`, error);
+                }
+            }
+
+            return stocks.length > 0 ? stocks : [];
+        },
+
+        /**
+         * CoinGecko에서 크립토 로드
+         */
+        async loadCryptoFromAPI() {
+            try {
+                const coinIds = ['bitcoin', 'ethereum', 'binancecoin', 'cardano', 'solana', 'ripple'];
+                const priceData = await APIManager.getCoinGeckoData(coinIds, 'usd');
+                const cryptos = [];
+
+                for (const coinId of coinIds) {
+                    if (priceData[coinId]) {
+                        const data = priceData[coinId];
+                        cryptos.push({
+                            id: coinId,
+                            name: this.getCoinName(coinId),
+                            symbol: this.getCoinSymbol(coinId),
+                            price: data.usd || 0,
+                            change: data.usd_24h_change || 0,
+                            volume24h: data.usd_24h_vol || 0,
+                            marketCap: data.usd_market_cap || 0
+                        });
+                    }
+                }
+
+                return cryptos.length > 0 ? cryptos : [];
+            } catch (error) {
+                console.error('CoinGecko API 실패:', error);
+                return [];
+            }
+        },
+
+        /**
+         * 코인 이름 매핑
+         */
+        getCoinName(coinId) {
+            const names = {
+                bitcoin: 'Bitcoin',
+                ethereum: 'Ethereum',
+                binancecoin: 'Binance Coin',
+                cardano: 'Cardano',
+                solana: 'Solana',
+                ripple: 'Ripple'
+            };
+            return names[coinId] || coinId;
+        },
+
+        /**
+         * 코인 심볼 매핑
+         */
+        getCoinSymbol(coinId) {
+            const symbols = {
+                bitcoin: 'BTC',
+                ethereum: 'ETH',
+                binancecoin: 'BNB',
+                cardano: 'ADA',
+                solana: 'SOL',
+                ripple: 'XRP'
+            };
+            return symbols[coinId] || coinId.toUpperCase();
         },
 
         /**
